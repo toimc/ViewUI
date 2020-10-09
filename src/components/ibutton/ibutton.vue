@@ -1,6 +1,8 @@
 <template>
-    <component is="button" :class="classes">
-
+    <component :is="tagName" :class="classes" :disabled="itemDisabled" @click="handleClickLink" v-bind="tagProps">
+        <Icon class="ivu-load-loop" type="ios-loading" v-if="loading"></Icon>
+        <Icon :type="icon" :custom="customIcon" v-if="(icon || customIcon) && !loading"></Icon>
+        <span v-if="showSlot" ref="slot"><slot></slot></span>
     </component>
 </template>
 
@@ -13,7 +15,7 @@
     const prefixCls = 'ivu-btn';
 
     export default {
-        name: 'Button',
+        name: 'iButton',
         mixins: [ mixinsLink, mixinsForm ],
         components: { Icon },
         props: {
@@ -34,11 +36,15 @@
                 },
                 default () {
                     return 'default';
-// return !this.$IVIEW || this.$IVIEW.size === '' ? 'default' : this.$IVIEW.size;
+                    // https://v3.vuejs.org/guide/migration/props-default-this.html
+                    // return !this.$IVIEW || this.$IVIEW.size === '' ? 'default' : this.$IVIEW.size;
                 }
             },
             loading: Boolean,
-            disabled: Boolean,
+            disabled: {
+                default: false,
+                type: Boolean
+            },
             htmlType: {
                 default: 'button',
                 validator (value) {
@@ -64,31 +70,32 @@
         },
         computed: {
             showSlot () {
-                return false
+                // Was this
+                // return !!this.$slots.default;
+                // Should become???
                 // return !!this.$slots.default();
+                return true;
             },
             classes () {
                 return [
                     `${prefixCls}`,
                     `${prefixCls}-${this.type}`,
-                    // {
-                    //     [`${prefixCls}-long`]: this.long,
-                    //     [`${prefixCls}-${this.shape}`]: !!this.shape,
-                    //     [`${prefixCls}-${this.size}`]: this.size !== 'default',
-                    //     [`${prefixCls}-loading`]: this.loading != null && this.loading,
-                    //     [`${prefixCls}-icon-only`]: !this.showSlot && (!!this.icon || !!this.customIcon || this.loading),
-                    //     [`${prefixCls}-ghost`]: this.ghost
-                    // }
+                    {
+                        [`${prefixCls}-long`]: this.long,
+                        [`${prefixCls}-${this.shape}`]: !!this.shape,
+                        [`${prefixCls}-${this.size}`]: this.size !== 'default',
+                        [`${prefixCls}-loading`]: this.loading != null && this.loading,
+                        [`${prefixCls}-icon-only`]: !this.showSlot && (!!this.icon || !!this.customIcon || this.loading),
+                        [`${prefixCls}-ghost`]: this.ghost
+                    }
                 ];
             },
             // Point out if it should render as <a> tag
             isHrefPattern() {
-                const {to} = this;
-                return !!to;
+                return !!this.to;
             },
             tagName() {
-                const {isHrefPattern} = this;
-                return isHrefPattern ? 'a' : 'button';
+                return this.isHrefPattern ? 'a' : 'button';
             },
             tagProps() {
                 const {isHrefPattern} = this;

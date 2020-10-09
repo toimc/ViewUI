@@ -1,7 +1,316 @@
 <template>
     <div>
         <Divider>vue-router 3.1 bug</Divider>
-        <i-button>EN</i-button> 
+        <i-button to="/button">跳转到 Button（当前路径）</i-button>
+        <i-button to="/button" replace>跳转到 Button（当前路径, replace）</i-button>
+        <Divider></Divider>
+        <i-button icon="logo-github" size="small" shape="circle"></i-button>
+        <i-button icon="logo-github" shape="circle"></i-button>
+        <i-button icon="logo-github" size="large" shape="circle"></i-button>
+
+        <i-button icon="logo-github" size="small"></i-button>
+        <i-button size="small">EN</i-button>
+
+        <i-button icon="logo-github"></i-button>
+
+        <i-button icon="logo-github" size="large"></i-button>
+        <i-button size="large">EN</i-button>
+
+        <ButtonGroup size="small">
+            <i-button icon="logo-github"></i-button>
+            <i-button icon="logo-twitter"></i-button>
+            <i-button>
+                EN
+            </i-button>
+        </ButtonGroup>
+
+        <ButtonGroup>
+            <i-button icon="logo-github"></i-button>
+            <i-button icon="logo-twitter"></i-button>
+            <i-button>
+                ENs
+            </i-button>
+        </ButtonGroup>
+
+        <ButtonGroup size="large">
+            <i-button icon="logo-github"></i-button>
+            <i-button icon="logo-twitter"></i-button>
+            <i-button >
+                EN
+            </i-button>
+        </ButtonGroup>
+        <br><br><br>
+        <i-button type="default">Default</i-button>
+        <i-button type="primary">Primary</i-button>
+        <i-button type="dashed">Dashed</i-button>
+        <i-button type="info">Info</i-button>
+        <i-button type="success">Success</i-button>
+        <i-button type="warning">Warning</i-button>
+        <i-button type="error">Error</i-button>
+        <i-button type="text">Text</i-button>
+        <br><br><br>
+        <i-button type="default" disabled>Default</i-button>
+        <i-button type="primary" disabled>Primary</i-button>
+        <i-button type="dashed" disabled>Dashed</i-button>
+        <i-button type="info" disabled>Info</i-button>
+        <i-button type="success" disabled>Success</i-button>
+        <i-button type="warning" disabled>Warning</i-button>
+        <i-button type="error" disabled>Error</i-button>
+        <i-button type="text" disabled>Text</i-button>
+        <br><br><br>
+        <div style="padding: 20px;background: rgb(190, 200, 200)">
+            <i-button type="default" ghost>Default</i-button>
+            <i-button type="primary" ghost>Primary</i-button>
+            <i-button type="dashed" ghost>Dashed</i-button>
+            <i-button type="info" ghost>Info</i-button>
+            <i-button type="success" ghost>Success</i-button>
+            <i-button type="warning" ghost>Warning</i-button>
+            <i-button type="error" ghost>Error</i-button>
+            <i-button type="text" ghost>Text</i-button>
+            <br><br><br>
+            <i-button type="default" ghost disabled>Default</i-button>
+            <i-button type="primary" ghost disabled>Primary</i-button>
+            <i-button type="dashed" ghost disabled>Dashed</i-button>
+            <i-button type="info" ghost disabled>Info</i-button>
+            <i-button type="success" ghost disabled>Success</i-button>
+            <i-button type="warning" ghost disabled>Warning</i-button>
+            <i-button type="error" ghost disabled>Error</i-button>
+            <i-button type="text" ghost disabled>Text</i-button>
+        </div>
+        <Divider></Divider>
+        <i-button type="primary">普通按钮</i-button>
+        <i-button type="primary" to="/">普通按钮</i-button>
+        <i-button type="primary" size="small">普通按钮</i-button>
+        <i-button type="primary" to="/" size="small">普通按钮</i-button>
+        <i-button type="primary" size="large">普通按钮</i-button>
+        <i-button type="primary" to="/" size="large">普通按钮</i-button>
+        <i-button type="primary" size="large" shape="circle">普通按钮</i-button>
+        <i-button type="primary" to="/" size="large" shape="circle">普通按钮</i-button>
+        <br><br><br>
+        <i-button type="primary" icon="ios-information-circle" size="small">Search</i-button>
+        <i-button type="primary" icon="ios-information-circle" size="default">Search</i-button>
+        <i-button type="primary" icon="ios-information-circle" size="large">Search</i-button>
+        <br><br><br>
+        <i-button @click="hc">Open Menu2</i-button>
+        <i-button to="/menu" @click="hc">Open Menu2</i-button>
+        <i-button to="/menu" replace>Open Menu Replace</i-button>
+        <i-button to="//iviewui.com" target="_blank">Open iView</i-button>
+        <hr>
+        <i-button @click="hc">链接按钮</i-button>
+        <i-button to="/menu" @click="hc">链接按钮</i-button>
+        <hr>
+        <Icon custom="i-icon i-icon-search" />
+        <Icon custom="i-icon i-icon-video" size="24" color="#ff6600" />
+        <Icon custom="i-icon i-icon-time" />
+        <Icon type="ionic" />
+        <i-button icon="ionic">Default</i-button>
+        <i-button custom-icon="i-icon i-icon-search">Default</i-button>
+        <i-button icon="ionic" shape="circle"></i-button>
+        <i-button custom-icon="i-icon i-icon-video" shape="circle"></i-button>
+        <hr>
+        <i-button>Default</i-button>
+        <i-button type="primary">Primary</i-button>
+        <i-button type="default">Ghost</i-button>
+        <i-button type="dashed">Dashed</i-button>
+        <i-button type="text">Text</i-button>
+        <br><br>
+        <i-button type="info">Info</i-button>
+        <i-button type="success">Success</i-button>
+        <i-button type="warning">Warning</i-button>
+        <i-button type="error">Error</i-button>
+        <br><br>
+        <i-button type="primary" shape="circle" icon="ios-search"></i-button>
+        <i-button type="primary" icon="ios-search">Search</i-button>
+        <i-button type="primary" shape="circle" icon="ios-search">Search</i-button>
+        <i-button type="primary" shape="circle">Circle</i-button>
+        <br><br>
+        <i-button type="default" shape="circle" icon="ios-search"></i-button>
+        <i-button type="default" icon="ios-search">Search</i-button>
+        <i-button type="default" shape="circle" icon="ios-search">Search</i-button>
+        <i-button type="default" shape="circle">Circle</i-button>
+        <br><br>
+        <i-button>Default</i-button>
+        <i-button disabled>Default(Disabled)</i-button>
+        <br>
+        <i-button type="primary">Primary</i-button>
+        <i-button type="primary" disabled>Primary(Disabled)</i-button>
+        <br>
+        <i-button type="default">Ghost</i-button>
+        <i-button type="default" disabled>Ghost(Disabled)</i-button>
+        <br>
+        <i-button type="dashed">Dashed</i-button>
+        <i-button type="dashed" disabled>Dashed(Disabled)</i-button>
+        <br>
+        <i-button type="text">Text</i-button>
+        <i-button type="text" disabled>Text(Disabled)</i-button>
+        <br><br>
+
+        <br><br>
+        <h4>基本</h4>
+        <br><br>
+        <Button-group>
+            <i-button>取消</i-button>
+            <i-button type="primary">确定</i-button>
+        </Button-group>
+        <Button-group>
+            <i-button disabled>昨日</i-button>
+            <i-button disabled>今日</i-button>
+            <i-button disabled>明日</i-button>
+        </Button-group>
+        <Button-group>
+            <i-button type="primary">L</i-button>
+            <i-button>M</i-button>
+            <i-button type="default">M</i-button>
+            <i-button type="dashed">R</i-button>
+        </Button-group>
+        <br><br>
+        <h4>配合图标</h4>
+        <br><br>
+        <Button-group>
+            <i-button type="primary">
+                <Icon type="chevron-left"></Icon>
+                前进
+            </i-button>
+            <i-button type="primary">
+                后退
+                <Icon type="chevron-right"></Icon>
+            </i-button>
+        </Button-group>
+        <Button-group>
+            <i-button type="primary" icon="ios-skip-backward"></i-button>
+            <i-button type="primary" icon="ios-skip-forward"></i-button>
+        </Button-group>
+        <Button-group>
+            <i-button type="default" icon="ios-color-wand-outline"></i-button>
+            <i-button type="default" icon="ios-sunny-outline"></i-button>
+            <i-button type="default" icon="ios-crop"></i-button>
+            <i-button type="default" icon="ios-color-filter-outline"></i-button>
+        </Button-group>
+        <br><br>
+        <h4>圆角</h4>
+        <br><br>
+        <Button-group shape="circle">
+            <i-button type="primary">
+                <Icon type="chevron-left"></Icon>
+                前进
+            </i-button>
+            <i-button type="primary">
+                后退
+                <Icon type="chevron-right"></Icon>
+            </i-button>
+        </Button-group>
+        <Button-group shape="circle">
+            <i-button type="primary" icon="ios-skip-backward"></i-button>
+            <i-button type="primary" icon="ios-skip-forward"></i-button>
+        </Button-group>
+        <Button-group shape="circle">
+            <i-button type="default" icon="ios-color-wand-outline"></i-button>
+            <i-button type="default" icon="ios-sunny-outline"></i-button>
+            <i-button type="default" icon="ios-crop"></i-button>
+            <i-button type="default" icon="ios-color-filter-outline"></i-button>
+        </Button-group>
+        <br><br>
+        <h4>尺寸</h4>
+        <br><br>
+        <Button-group size="large">
+            <i-button type="default">Large</i-button>
+            <i-button type="default">Large</i-button>
+        </Button-group>
+        <Button-group size="large">
+            <i-button type="default">大汉字</i-button>
+            <i-button type="default">大汉字</i-button>
+        </Button-group>
+        <Button-group>
+            <i-button type="default">Default</i-button>
+            <i-button type="default">Default</i-button>
+        </Button-group>
+        <Button-group size="small">
+            <i-button type="default">Small</i-button>
+            <i-button type="default">Small</i-button>
+        </Button-group>
+        <br><br>
+        <Button-group size="large" shape="circle">
+            <i-button type="default">Large</i-button>
+            <i-button type="default">Large</i-button>
+        </Button-group>
+        <Button-group shape="circle">
+            <i-button type="default">Default</i-button>
+            <i-button type="default">Default</i-button>
+        </Button-group>
+        <Button-group size="small" shape="circle">
+            <i-button type="default">Small</i-button>
+            <i-button type="default">Small</i-button>
+        </Button-group>
+
+        <br><br>
+        <i-button to="/icon">Open New Window</i-button>
+        <br><br><br>
+        <ButtonGroup vertical size="small">
+            <i-button icon="logo-facebook"></i-button>
+            <i-button icon="logo-twitter"></i-button>
+            <i-button icon="logo-googleplus"></i-button>
+            <i-button icon="logo-tumblr"></i-button>
+        </ButtonGroup>
+        <ButtonGroup vertical>
+            <i-button icon="logo-facebook"></i-button>
+            <i-button icon="logo-twitter"></i-button>
+            <i-button icon="logo-googleplus"></i-button>
+            <i-button icon="logo-tumblr"></i-button>
+        </ButtonGroup>
+        <ButtonGroup vertical size="large">
+            <i-button icon="logo-facebook"></i-button>
+            <i-button icon="logo-twitter"></i-button>
+            <i-button icon="logo-googleplus"></i-button>
+            <i-button icon="logo-tumblr"></i-button>
+        </ButtonGroup>
+        <br><br>
+        <i-button>
+            <Icon type="md-alert" />
+            左右图标
+            <Icon type="ios-aperture" />
+        </i-button>
+        <i-button>
+            左右图标
+            <Icon type="ios-aperture" />
+        </i-button>
+        <i-button>
+            <Icon type="md-alert" />
+            左右图标
+        </i-button>
+        <i-button icon="md-alert">
+            左右图标
+        </i-button>
+        <Divider></Divider>
+        <div>
+            <RadioGroup v-model="buttonSize" type="button">
+                <Radio label="large">Large</Radio>
+                <Radio label="default">Default</Radio>
+                <Radio label="small">small</Radio>
+            </RadioGroup>
+            <br><br>
+            <i-button :size="buttonSize" type="primary">Primary</i-button>
+            <i-button :size="buttonSize" type="default">Default</i-button>
+            <i-button :size="buttonSize" type="dashed">Dashed</i-button>
+            <i-button :size="buttonSize" type="text">Text</i-button>
+            <br><br>
+            <i-button :size="buttonSize" icon="md-download" type="primary" shape="circle"></i-button>
+            <i-button :size="buttonSize" icon="md-download" type="primary">Download</i-button>
+            <br><br>
+            <ButtonGroup :size="buttonSize">
+                <i-button :size="buttonSize" type="primary">
+                    <Icon type="ios-arrow-back" />
+                    Backward
+                </i-button>
+                <i-button :size="buttonSize" type="primary">
+                    Forward
+                    <Icon type="ios-arrow-forward" />
+                </i-button>
+            </ButtonGroup>
+        </div>
+        <Divider></Divider>
+        <i-button to="http://baidu.com" replace>http跳转</i-button>
+        <i-button to="https://iviewui.com" replace>https跳转</i-button>
+        <i-button :to="{path: '/icon'}">Router 对象跳转</i-button>
     </div>
 </template>
 

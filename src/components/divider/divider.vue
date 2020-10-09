@@ -41,7 +41,8 @@
         },
         computed: {
             hasSlot() {
-                return !!this.$slots.default();
+                return true
+                // return !!this.$slots.default();
             },
             classes() {
                 return [

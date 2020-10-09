@@ -1,3 +1,3 @@
-import ButtonGroup from '../button/button-group.vue';
+import ButtonGroup from '../i-button/button-group.vue';
 
 export default ButtonGroup;

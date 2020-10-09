@@ -16,7 +16,9 @@
                     return oneOf(value, ['small', 'large', 'default']);
                 },
                 default () {
-                    return !this.$IVIEW || this.$IVIEW.size === '' ? 'default' : this.$IVIEW.size;
+                    return 'default';
+                    // https://v3.vuejs.org/guide/migration/props-default-this.html
+                    // return !this.config.globalProperties.$IVIEW || this.config.globalProperties.$IVIEW.size === '' ? 'default' : this.config.globalProperties.$IVIEW.size;
                 }
             },
             shape: {

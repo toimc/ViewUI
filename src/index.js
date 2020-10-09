@@ -9,7 +9,7 @@ import { createApp } from 'vue'
 // import BackTop from './components/back-top';
 // import Badge from './components/badge';
 // import Breadcrumb from './components/breadcrumb';
-import Button from './components/button';
+import iButton from './components/ibutton';
 // import Card from './components/card';
 // import Carousel from './components/carousel';
 // import Cascader from './components/cascader';
@@ -73,8 +73,8 @@ const components = {
     // Badge,
     // Breadcrumb,
     // BreadcrumbItem: Breadcrumb.Item,
-    Button,
-    // ButtonGroup: Button.Group,
+    iButton,
+    ButtonGroup: iButton.Group,
     // Card,
     // Carousel,
     // CarouselItem: Carousel.Item,
@@ -146,7 +146,7 @@ const components = {
 
 const iview = {
     ...components,
-    iButton: Button,
+    iButton: iButton,
 //     iCircle: Circle,
 //     iCol: Col,
 //     iContent: Content,
