@@ -1,6 +1,6 @@
 import { createApp } from 'vue'
 
-// import Affix from './components/affix';
+import Affix from './components/affix';
 // import Alert from './components/alert';
 // import Anchor from './components/anchor';
 // import AnchorLink from './components/anchor-link';
@@ -10,7 +10,7 @@ import { createApp } from 'vue'
 // import Badge from './components/badge';
 // import Breadcrumb from './components/breadcrumb';
 import iButton from './components/ibutton';
-// import Card from './components/card';
+import Card from './components/card';
 // import Carousel from './components/carousel';
 // import Cascader from './components/cascader';
 // import Cell from './components/cell';
@@ -26,7 +26,7 @@ import Divider from './components/divider';
 // import Footer from './components/footer';
 // import Form from './components/form';
 // import Header from './components/header';
-// import Icon from './components/icon';
+import Icon from './components/icon';
 // import Input from './components/input';
 // import InputNumber from './components/input-number';
 // import Scroll from './components/scroll';
@@ -58,12 +58,12 @@ import Divider from './components/divider';
 // import Transfer from './components/transfer';
 // import Tree from './components/tree';
 // import Upload from './components/upload';
-// import {Row, Col} from './components/grid';
+import {Row, Col} from './components/grid';
 // import {Select, Option, OptionGroup} from './components/select';
 import locale from './locale/index';
 
 const components = {
-    // Affix,
+    Affix,
     // Alert,
     // Anchor,
     // AnchorLink,
@@ -75,7 +75,7 @@ const components = {
     // BreadcrumbItem: Breadcrumb.Item,
     iButton,
     ButtonGroup: iButton.Group,
-    // Card,
+    Card,
     // Carousel,
     // CarouselItem: Carousel.Item,
     // Cascader,
@@ -83,7 +83,7 @@ const components = {
     // CellGroup: Cell.Group,
     // Checkbox,
     // CheckboxGroup: Checkbox.Group,
-    // Col,
+    Col,
     // Collapse,
     // ColorPicker,
     // Content: Content,
@@ -97,7 +97,7 @@ const components = {
     // Form,
     // FormItem: Form.Item,
     // Header: Header,
-    // Icon,
+    Icon,
     // Input,
     // InputNumber,
     // Scroll,
@@ -124,7 +124,7 @@ const components = {
     // Radio,
     // RadioGroup: Radio.Group,
     // Rate,
-    // Row,
+    Row,
     // Select,
     // Slider,
     // Spin,
@@ -148,7 +148,7 @@ const iview = {
     ...components,
     iButton: iButton,
 //     iCircle: Circle,
-//     iCol: Col,
+    iCol: Col,
 //     iContent: Content,
 //     iForm: Form,
 //     iFooter: Footer,

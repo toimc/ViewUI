@@ -1,11 +1,13 @@
 <template>
     <component :is="tagName" :class="classes" v-bind="tagProps" @click="handleClickLink">
-        <div :class="headClasses" v-if="showHead"><slot name="title">
+        <div :class="headClasses" v-if="showHead">
+            <slot name="title">
             <p v-if="title">
                 <Icon v-if="icon" :type="icon"></Icon>
                 <span>{{title}}</span>
             </p>
-        </slot></div>
+            </slot>
+        </div>
         <div :class="extraClasses" v-if="showExtra"><slot name="extra"></slot></div>
         <div :class="bodyClasses" :style="bodyStyles"><slot></slot></div>
     </component>

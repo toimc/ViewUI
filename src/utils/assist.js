@@ -203,6 +203,7 @@ export {findComponentUpward};
 
 // Find component downward
 export function findComponentDownward (context, componentName) {
+    // $children doesn't appear to exist anymore...
     const childrens = context.$children;
     let children = null;
 

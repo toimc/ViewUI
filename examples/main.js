@@ -3,9 +3,14 @@ import {createApp} from 'vue';
 import { createRouter, createWebHashHistory } from 'vue-router';
 import App from './app.vue';
 import iView from '../src/index';
+
 import locale from '../src/locale/lang/zh-CN';
 
-import ButtonPage from './routers/button-page.vue';
+import Affix from './routers/affix.vue';
+import Button from './routers/button.vue';
+import Divider from './routers/divider.vue';
+import Card from './routers/card.vue';
+import Icon from './routers/icon.vue';
 
 const app = createApp(App);
 
@@ -26,10 +31,10 @@ const router = createRouter({
         //     path: '/layout',
         //     component: (resolve) => require(['./routers/layout.vue'], resolve)
         // },
-        // {
-        //     path: '/affix',
-        //     component: (resolve) => require(['./routers/affix.vue'], resolve)
-        // },
+        {
+            path: '/affix',
+            component: Affix
+        },
         // {
         //     path: '/anchor',
         //     component: (resolve) => require(['./routers/anchor.vue'], resolve)
@@ -39,8 +44,8 @@ const router = createRouter({
         //     component: (resolve) => require(['./routers/grid.vue'], resolve)
         // },
         {
-            path: '/button-page',
-            component: ButtonPage
+            path: '/button',
+            component: Button
         },
         // {
         //     path: '/input',
@@ -98,10 +103,10 @@ const router = createRouter({
         //     path: '/carousel',
         //     component: (resolve) => require(['./routers/carousel.vue'], resolve)
         // },
-        // {
-        //     path: '/card',
-        //     component: (resolve) => require(['./routers/card.vue'], resolve)
-        // },
+        {
+            path: '/card',
+            component: Card
+        },
         // {
         //     path: '/tree',
         //     component: (resolve) => require(['./routers/tree.vue'], resolve)
@@ -210,10 +215,10 @@ const router = createRouter({
         //     path: '/scroll',
         //     component: (resolve) => require(['./routers/scroll.vue'], resolve)
         // },
-        // {
-        //     path: '/divider',
-        //     component: (resolve) => require(['./routers/divider.vue'], resolve)
-        // },
+        {
+            path: '/divider',
+            component: Divider
+        },
         // {
         //     path: '/time',
         //     component: (resolve) => require(['./routers/time.vue'], resolve)
@@ -226,10 +231,10 @@ const router = createRouter({
         //     path: '/drawer',
         //     component: (resolve) => require(['./routers/drawer.vue'], resolve)
         // },
-        // {
-        //     path: '/icon',
-        //     component: (resolve) => require(['./routers/icon.vue'], resolve)
-        // },
+        {
+            path: '/icon',
+            component: Icon
+        },
         // {
         //     path: '/list',
         //     component: (resolve) => require(['./routers/list.vue'], resolve)

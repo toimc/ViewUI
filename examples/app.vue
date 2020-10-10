@@ -1,16 +1,23 @@
 <style lang="less">
     @import "../src/styles/index.less";
+    body {
+        .menu {
+            span {
+                padding: 0px 5px;
+            }
+        }
+    }
 </style>
 <template>
     <div class="container">
         <div>
-            <div>
+            <div class="menu">
                 <!-- <span><router-link to="/split">Split</router-link></span>
-                <span><router-link to="/layout">Layout</router-link></span>
+                <span><router-link to="/layout">Layout</router-link></span> -->
                 <span><router-link to="/affix">Affix</router-link></span>
-                <span><router-link to="/anchor">Anchor</router-link></span>
-                <span><router-link to="/grid">Grid</router-link></span> -->
-                <span><router-link to="/button-page">Button</router-link></span>
+                <!-- <span><router-link to="/anchor">Anchor</router-link></span>
+                <span><router-link to="/grid">Grid</router-link></span> --> 
+                <span><router-link to="/button">Button</router-link></span>
                 <!-- <span><router-link to="/input">Input</router-link></span>
                 <span><router-link to="/radio">Radio</router-link></span>
                 <span><router-link to="/checkbox">Checkbox</router-link></span>
@@ -24,9 +31,9 @@
                 <span><router-link to="/progress">Progress</router-link></span>
                 <span><router-link to="/upload">Upload</router-link></span>
                 <span><router-link to="/collapse">Collapse</router-link></span>
-                <span><router-link to="/carousel">Carousel</router-link></span>
+                <span><router-link to="/carousel">Carousel</router-link></span> -->
                 <span><router-link to="/card">Card</router-link></span>
-                <span><router-link to="/tree">Tree</router-link></span>
+                <!-- <span><router-link to="/tree">Tree</router-link></span>
                 <span><router-link to="/rate">Rate</router-link></span>
                 <span><router-link to="/circle">Circle</router-link></span>
                 <span><router-link to="/tabs">Tabs</router-link></span>
@@ -53,15 +60,15 @@
                 <span><router-link to="/color-picker">ColorPicker</router-link></span>
                 <span><router-link to="/auto-complete">AutoComplete</router-link></span>
                 <span><router-link to="/scroll">Scroll</router-link></span>
-                <span><router-link to="/divider">Divider</router-link></span>
-                <span><router-link to="/time">Time</router-link></span>
+                --> <span><router-link to="/divider">Divider</router-link></span>
+                <!-- <span><router-link to="/time">Time</router-link></span>
                 <span><router-link to="/cell">Cell</router-link></span>
-                <span><router-link to="/drawer">Drawer</router-link></span>
+                <span><router-link to="/drawer">Drawer</router-link></span> -->
                 <span><router-link to="/icon">Icon</router-link></span>
-                <span><router-link to="/list">List</router-link></span> -->
+                <!-- <span><router-link to="/list">List</router-link></span> -->
             </div>
         </div>
-        <div style="margin: 50px">
+        <div style="margin: 50px" class="ivu-article">
             <router-view></router-view>
         </div>
     </div>
