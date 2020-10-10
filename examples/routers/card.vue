@@ -9,7 +9,7 @@
             换一换
          </template>
         <ul>
-            <li v-for="item in movieList">
+            <li v-for="item in movieList" :key="item.name">
                 <a :href="item.url" target="_blank">{{ item.name }}</a>
                 <span>
                     <Icon type="ios-star" v-for="n in 4"></Icon><Icon type="ios-star" v-if="item.rate >= 9.5"></Icon><Icon type="ios-star-half" v-else></Icon>

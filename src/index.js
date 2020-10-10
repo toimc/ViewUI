@@ -27,10 +27,10 @@ import Divider from './components/divider';
 // import Form from './components/form';
 // import Header from './components/header';
 import Icon from './components/icon';
-// import Input from './components/input';
+import Input from './components/input';
 // import InputNumber from './components/input-number';
 // import Scroll from './components/scroll';
-// import Split from './components/split';
+import Split from './components/split';
 // import Layout from './components/layout';
 // import List from './components/list';
 // import LoadingBar from './components/loading-bar';
@@ -98,11 +98,11 @@ const components = {
     // FormItem: Form.Item,
     // Header: Header,
     Icon,
-    // Input,
+    Input,
     // InputNumber,
     // Scroll,
     // Sider: Sider,
-    // Split,
+    Split,
     // Submenu: Menu.Sub,
     // Layout: Layout,
     // List,
@@ -153,7 +153,7 @@ const iview = {
 //     iForm: Form,
 //     iFooter: Footer,
 //     iHeader: Header,
-//     iInput: Input,
+    iInput: Input,
 //     iMenu: Menu,
 //     iOption: Option,
 //     iProgress: Progress,

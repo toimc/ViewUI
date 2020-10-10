@@ -1,22 +1,22 @@
 <template>
-    <!--<div>-->
-        <!--<Input v-model="value" placeholder="Enter something..." style="width: 300px"></Input>-->
-        <!--<Input v-model="value11">-->
-            <!--<span slot="prepend">http://</span>-->
-            <!--<span slot="append">.com</span>-->
-        <!--</Input>-->
-        <!--<br>-->
-        <!--<Input v-model="value12">-->
-            <!--<Select v-model="select1" slot="prepend" style="width: 80px">-->
-                <!--<Option value="http">http://</Option>-->
-                <!--<Option value="https">https://</Option>-->
-            <!--</Select>-->
-            <!--<Select v-model="select2" slot="append" style="width: 70px">-->
-                <!--<Option value="com">.com</Option>-->
-                <!--<Option value="org">.org</Option>-->
-                <!--<Option value="io">.io</Option>-->
-            <!--</Select>-->
-        <!--</Input>-->
+    <div>
+        <Input v-model="value" placeholder="Enter something..." style="width: 300px"></Input>
+        <Input v-model="value11">
+            <template v-slot:prepend>http://</template>
+            <template v-slot:append>.com</template>
+        </Input>
+        <br>
+        <Input v-model="value12">
+            <Select v-model="select1" slot="prepend" style="width: 80px">
+                <Option value="http">http://</Option>
+                <Option value="https">https://</Option>
+            </Select>
+            <Select v-model="select2" slot="append" style="width: 70px">
+                <Option value="com">.com</Option>
+                <Option value="org">.org</Option>
+                <Option value="io">.io</Option>
+            </Select>
+        </Input>
         <!--<br>-->
         <!--<Input v-model="value13">-->
             <!--<Select v-model="select3" slot="prepend" style="width: 80px">-->
@@ -138,7 +138,7 @@
         <!--<Input v-model="value" search style="width: 300px" @on-search="hs" />-->
         <!--<br><br>-->
         <!--<Input v-model="value" search enter-button="Search" style="width: 300px" @on-search="hs" />-->
-    <!--</div>-->
+    </div>
     <div style="width: 200px">
         <Input v-model="value7" type="textarea" :autosize="true" placeholder="Enter something..."></Input>
     </div>

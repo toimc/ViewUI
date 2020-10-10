@@ -11,6 +11,8 @@ import Button from './routers/button.vue';
 import Divider from './routers/divider.vue';
 import Card from './routers/card.vue';
 import Icon from './routers/icon.vue';
+import Input from './routers/input.vue';
+import Split from './routers/split.vue';
 
 const app = createApp(App);
 
@@ -23,10 +25,10 @@ const router = createRouter({
     // esModule: false,
     history: createWebHashHistory(),
     routes: [
-        // {
-        //     path: '/split',
-        //     component: (resolve) => require(['./routers/split.vue'], resolve)
-        // },
+        {
+            path: '/split',
+            component: Split
+        },
         // {
         //     path: '/layout',
         //     component: (resolve) => require(['./routers/layout.vue'], resolve)
@@ -47,10 +49,10 @@ const router = createRouter({
             path: '/button',
             component: Button
         },
-        // {
-        //     path: '/input',
-        //     component: (resolve) => require(['./routers/input.vue'], resolve)
-        // },
+        {
+            path: '/input',
+            component: Input
+        },
         // {
         //     path: '/radio',
         //     component: (resolve) => require(['./routers/radio.vue'], resolve)
