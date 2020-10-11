@@ -5,6 +5,7 @@
 </template>
 <script>
     import { oneOf } from '../../utils/assist';
+    import { getCurrentInstance } from 'vue'
 
     const prefixCls = 'ivu-btn-group';
 
@@ -16,9 +17,9 @@
                     return oneOf(value, ['small', 'large', 'default']);
                 },
                 default () {
-                    return 'default';
-                    // https://v3.vuejs.org/guide/migration/props-default-this.html
-                    // return !this.config.globalProperties.$IVIEW || this.config.globalProperties.$IVIEW.size === '' ? 'default' : this.config.globalProperties.$IVIEW.size;
+                    const internalInstance = getCurrentInstance();
+                    const config = internalInstance.appContext.config;
+                    return !config.$IVIEW || config.$IVIEW.size === '' ? 'default' : config.$IVIEW.size;
                 }
             },
             shape: {

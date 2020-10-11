@@ -13,6 +13,14 @@ import Card from './routers/card.vue';
 import Icon from './routers/icon.vue';
 import Input from './routers/input.vue';
 import Split from './routers/split.vue';
+import Alert from './routers/alert.vue';
+import Anchor from './routers/anchor.vue';
+import Autocomplete from './routers/auto-complete.vue';
+import Select from './routers/select.vue'
+import Avatar from './routers/avatar.vue'
+import Badge from './routers/badge.vue'
+import Switch from './routers/switch.vue'
+import Radio from './routers/radio.vue'
 
 const app = createApp(App);
 
@@ -37,10 +45,10 @@ const router = createRouter({
             path: '/affix',
             component: Affix
         },
-        // {
-        //     path: '/anchor',
-        //     component: (resolve) => require(['./routers/anchor.vue'], resolve)
-        // },
+        {
+            path: '/anchor',
+            component: (resolve) => require(['./routers/anchor.vue'], resolve)
+        },
         // {
         //     path: '/grid',
         //     component: (resolve) => require(['./routers/grid.vue'], resolve)
@@ -53,10 +61,10 @@ const router = createRouter({
             path: '/input',
             component: Input
         },
-        // {
-        //     path: '/radio',
-        //     component: (resolve) => require(['./routers/radio.vue'], resolve)
-        // },
+        {
+            path: '/radio',
+            component: Radio
+        },
         // {
         //     path: '/checkbox',
         //     component: (resolve) => require(['./routers/checkbox.vue'], resolve)
@@ -69,18 +77,18 @@ const router = createRouter({
         //     path: '/timeline',
         //     component: (resolve) => require(['./routers/timeline.vue'], resolve)
         // },
-        // {
-        //     path: '/switch',
-        //     component: (resolve) => require(['./routers/switch.vue'], resolve)
-        // },
-        // {
-        //     path: '/alert',
-        //     component: (resolve) => require(['./routers/alert.vue'], resolve)
-        // },
-        // {
-        //     path: '/badge',
-        //     component: (resolve) => require(['./routers/badge.vue'], resolve)
-        // },
+        {
+            path: '/switch',
+            component: Switch
+        },
+        {
+            path: '/alert',
+            component: Alert
+        },
+        {
+            path: '/badge',
+            component: Badge
+        },
         // {
         //     path: '/tag',
         //     component: (resolve) => require(['./routers/tag.vue'], resolve)
@@ -157,10 +165,10 @@ const router = createRouter({
         //     path: '/cascader',
         //     component: (resolve) => require(['./routers/cascader.vue'], resolve)
         // },
-        // {
-        //     path: '/select',
-        //     component: (resolve) => require(['./routers/select.vue'], resolve)
-        // },
+        {
+            path: '/select',
+            component: Select
+        },
         // {
         //     path: '/backtop',
         //     component: (resolve) => require(['./routers/back-top.vue'], resolve)
@@ -201,18 +209,18 @@ const router = createRouter({
         //     path: '/notice',
         //     component: (resolve) => require(['./routers/notice.vue'], resolve)
         // },
-        // {
-        //     path: '/avatar',
-        //     component: (resolve) => require(['./routers/avatar.vue'], resolve)
-        // },
+        {
+            path: '/avatar',
+            component: Avatar
+        },
         // {
         //     path: '/color-picker',
         //     component: (resolve) => require(['./routers/color-picker.vue'], resolve)
         // },
-        // {
-        //     path: '/auto-complete',
-        //     component: (resolve) => require(['./routers/auto-complete.vue'], resolve)
-        // },
+        {
+            path: '/auto-complete',
+            component: Autocomplete
+        },
         // {
         //     path: '/scroll',
         //     component: (resolve) => require(['./routers/scroll.vue'], resolve)

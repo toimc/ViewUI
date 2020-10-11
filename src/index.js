@@ -1,13 +1,13 @@
-import { createApp } from 'vue'
+import { createApp } from 'vue';
 
 import Affix from './components/affix';
-// import Alert from './components/alert';
-// import Anchor from './components/anchor';
-// import AnchorLink from './components/anchor-link';
-// import AutoComplete from './components/auto-complete';
-// import Avatar from './components/avatar';
+import Alert from './components/alert';
+import Anchor from './components/anchor';
+import AnchorLink from './components/anchor-link';
+import AutoComplete from './components/auto-complete';
+import Avatar from './components/avatar';
 // import BackTop from './components/back-top';
-// import Badge from './components/badge';
+import Badge from './components/badge';
 // import Breadcrumb from './components/breadcrumb';
 import iButton from './components/ibutton';
 import Card from './components/card';
@@ -41,13 +41,13 @@ import Split from './components/split';
 // import Page from './components/page';
 // import Poptip from './components/poptip';
 // import Progress from './components/progress';
-// import Radio from './components/radio';
+import Radio from './components/radio';
 // import Rate from './components/rate';
 // import Sider from './components/sider';
 // import Slider from './components/slider';
 // import Spin from './components/spin';
 // import Steps from './components/steps';
-// import Switch from './components/switch';
+import Switch from './components/switch';
 // import Table from './components/table';
 // import Tabs from './components/tabs';
 // import Tag from './components/tag';
@@ -59,18 +59,18 @@ import Split from './components/split';
 // import Tree from './components/tree';
 // import Upload from './components/upload';
 import {Row, Col} from './components/grid';
-// import {Select, Option, OptionGroup} from './components/select';
+import {Select, Option, OptionGroup} from './components/select';
 import locale from './locale/index';
 
 const components = {
     Affix,
-    // Alert,
-    // Anchor,
-    // AnchorLink,
-    // AutoComplete,
-    // Avatar,
+    Alert,
+    Anchor,
+    AnchorLink,
+    AutoComplete,
+    Avatar,
     // BackTop,
-    // Badge,
+    Badge,
     // Breadcrumb,
     // BreadcrumbItem: Breadcrumb.Item,
     iButton,
@@ -103,6 +103,7 @@ const components = {
     // Scroll,
     // Sider: Sider,
     Split,
+    Switch,
     // Submenu: Menu.Sub,
     // Layout: Layout,
     // List,
@@ -115,17 +116,17 @@ const components = {
     // Message,
     // Modal,
     // Notice,
-    // Option: Option,
-    // OptionGroup,
+    Option: Option,
+    OptionGroup,
     // Page,
     // Panel: Collapse.Panel,
     // Poptip,
     // Progress,
-    // Radio,
-    // RadioGroup: Radio.Group,
+    Radio,
+    RadioGroup: Radio.Group,
     // Rate,
     Row,
-    // Select,
+    Select,
     // Slider,
     // Spin,
     // Step: Steps.Step,
@@ -157,21 +158,19 @@ const iview = {
 //     iMenu: Menu,
 //     iOption: Option,
 //     iProgress: Progress,
-//     iSelect: Select,
-//     iSwitch: Switch,
+    iSelect: Select,
+    iSwitch: Switch,
 //     iTable: Table,
 //     iTime: Time
 };
 
-const app = createApp({});
 
-const install = function(Vue, opts = {}) {
-    if (install.installed) return;
+const install = function(app, opts = {}) {
     locale.use(opts.locale);
     locale.i18n(opts.i18n);
 
     Object.keys(iview).forEach(key => {
-        Vue.component(key, iview[key]);
+        app.component(key, iview[key]);
     });
 
     app.config.globalProperties.$IVIEW = {
@@ -230,7 +229,6 @@ const install = function(Vue, opts = {}) {
             maskClosable: opts.modal ? 'maskClosable' in opts.modal ? opts.modal.maskClosable : '' : ''
         }
     };
-
     // Vue.prototype.$Loading = LoadingBar;
     // Vue.prototype.$Message = Message;
     // Vue.prototype.$Modal = Modal;
@@ -238,18 +236,12 @@ const install = function(Vue, opts = {}) {
     // Vue.prototype.$Spin = Spin;
 };
 
-// auto install
-if (typeof window !== 'undefined' && window.Vue) {
-    install(window.Vue);
-}
-
 const API = {
     version: process.env.VERSION, // eslint-disable-line no-undef
     locale: locale.use,
     i18n: locale.i18n,
     install,
     // Circle,
-    // Switch,
     ...components
 };
 

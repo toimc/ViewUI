@@ -2,9 +2,8 @@
     <div class="ivu-select-dropdown" :class="className" :style="styles"><slot></slot></div>
 </template>
 <script>
-    import { isServer  } from '../utils/assist'
-    import { getStyle } from '../../utils/assist';
-    const Popper = isServer() ? function() {} : require('popper.js/dist/umd/popper.js');  // eslint-disable-line
+    import { getStyle, isServer } from '../../utils/assist';
+    const Popper = isServer ? function() {} : require('popper.js/dist/umd/popper.js');  // eslint-disable-line
 
     import { transferIndex, transferIncrease } from '../../utils/transfer-queue';
 
@@ -108,7 +107,7 @@
             this.$on('on-update-popper', this.update);
             this.$on('on-destroy-popper', this.destroy);
         },
-        beforeDestroy () {
+        beforeUnmount () {
             if (this.popper) {
                 this.popper.destroy();
             }

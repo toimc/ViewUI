@@ -44,6 +44,7 @@
     import { oneOf } from '../../utils/assist';
     import Emitter from '../../mixins/emitter';
     import mixinsForm from '../../mixins/form';
+    import { getCurrentInstance } from 'vue';
 
     export default {
         name: 'AutoComplete',
@@ -78,7 +79,9 @@
                     return oneOf(value, ['small', 'large', 'default']);
                 },
                 default () {
-                    return !this.$IVIEW || this.$IVIEW.size === '' ? 'default' : this.$IVIEW.size;
+                    const internalInstance = getCurrentInstance();
+                    const config = internalInstance.appContext.config;
+                    return !config.$IVIEW || config.$IVIEW.size === '' ? 'default' : config.$IVIEW.size;
                 }
             },
             icon: {

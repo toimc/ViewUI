@@ -1,7 +1,7 @@
 <template>
     <div class="demo-avatar">
         <Avatar :style="{background: color}">{{ user }}</Avatar>
-        <Button size="small" @click="handleChange">Change</Button>
+        <i-button size="small" @click="handleChange">Change</i-button>
         <div>
             <div class="demo-avatar">
                 <Avatar icon="ios-person" size="large" />
