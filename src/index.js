@@ -39,12 +39,12 @@ import Split from './components/split';
 // import Modal from './components/modal';
 // import Notice from './components/notice';
 // import Page from './components/page';
-// import Poptip from './components/poptip';
+import Poptip from './components/poptip';
 // import Progress from './components/progress';
 import Radio from './components/radio';
 // import Rate from './components/rate';
 // import Sider from './components/sider';
-// import Slider from './components/slider';
+import Slider from './components/slider';
 // import Spin from './components/spin';
 // import Steps from './components/steps';
 import Switch from './components/switch';
@@ -54,7 +54,7 @@ import Switch from './components/switch';
 // import Time from './components/time';
 // import Timeline from './components/timeline';
 // import TimePicker from './components/time-picker';
-// import Tooltip from './components/tooltip';
+import Tooltip from './components/tooltip';
 // import Transfer from './components/transfer';
 // import Tree from './components/tree';
 // import Upload from './components/upload';
@@ -120,14 +120,14 @@ const components = {
     OptionGroup,
     // Page,
     // Panel: Collapse.Panel,
-    // Poptip,
+    Poptip,
     // Progress,
     Radio,
     RadioGroup: Radio.Group,
     // Rate,
     Row,
     Select,
-    // Slider,
+    Slider,
     // Spin,
     // Step: Steps.Step,
     // Steps,
@@ -139,7 +139,7 @@ const components = {
     // Timeline,
     // TimelineItem: Timeline.Item,
     // TimePicker,
-    // Tooltip,
+    Tooltip,
     // Transfer,
     // Tree,
     // Upload

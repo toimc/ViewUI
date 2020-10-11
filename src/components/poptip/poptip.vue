@@ -48,12 +48,13 @@
 </template>
 <script>
     import Popper from '../base/popper';
-    import iButton from '../button/button.vue';
+    import iButton from '../ibutton/ibutton.vue';
     import clickOutside from '../../directives/clickoutside';
     import TransferDom from '../../directives/transfer-dom';
     import { oneOf } from '../../utils/assist';
     import { transferIndex, transferIncrease } from '../../utils/transfer-queue';
     import Locale from '../../mixins/locale';
+    import { getCurrentInstance } from 'vue';
 
     const prefixCls = 'ivu-poptip';
 
@@ -98,7 +99,9 @@
             transfer: {
                 type: Boolean,
                 default () {
-                    return !this.$IVIEW || this.$IVIEW.transfer === '' ? false : this.$IVIEW.transfer;
+                    const internalInstance = getCurrentInstance();
+                    const config = internalInstance.appContext.config;
+                    return !config.$IVIEW || config.$IVIEW.size === '' ? 'default' : config.$IVIEW.size;
                 }
             },
             popperClass: {
@@ -121,7 +124,9 @@
             capture: {
                 type: Boolean,
                 default () {
-                    return !this.$IVIEW ? false : this.$IVIEW.capture;
+                    const internalInstance = getCurrentInstance();
+                    const config = internalInstance.appContext.config;
+                    return !config.$IVIEW ? false : this.$IVIEW.capture;
                 }
             },
             transferClassName: {

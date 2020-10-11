@@ -19,7 +19,7 @@
                         style: {
                             color: '#1989FA'
                         },
-                        label: this.$createElement('strong', '50%')
+                        label: document.createElement('strong', '50%')
                     }
                 }
             }

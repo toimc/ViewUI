@@ -4,7 +4,7 @@ import { createRouter, createWebHashHistory } from 'vue-router';
 import App from './app.vue';
 import iView from '../src/index';
 
-import locale from '../src/locale/lang/zh-CN';
+import locale from '../src/locale/lang/en-US';
 
 import Affix from './routers/affix.vue';
 import Button from './routers/button.vue';
@@ -16,11 +16,14 @@ import Split from './routers/split.vue';
 import Alert from './routers/alert.vue';
 import Anchor from './routers/anchor.vue';
 import Autocomplete from './routers/auto-complete.vue';
-import Select from './routers/select.vue'
-import Avatar from './routers/avatar.vue'
-import Badge from './routers/badge.vue'
-import Switch from './routers/switch.vue'
-import Radio from './routers/radio.vue'
+import Select from './routers/select.vue';
+import Avatar from './routers/avatar.vue';
+import Badge from './routers/badge.vue';
+import Switch from './routers/switch.vue';
+import Radio from './routers/radio.vue';
+import Poptip from './routers/poptip.vue';
+import Slider from './routers/slider.vue';
+import Tooltip from './routers/tooltip.vue';
 
 const app = createApp(App);
 
@@ -133,18 +136,18 @@ const router = createRouter({
         //     path: '/tabs',
         //     component: (resolve) => require(['./routers/tabs.vue'], resolve)
         // },
-        // {
-        //     path: '/tooltip',
-        //     component: (resolve) => require(['./routers/tooltip.vue'], resolve)
-        // },
-        // {
-        //     path: '/poptip',
-        //     component: (resolve) => require(['./routers/poptip.vue'], resolve)
-        // },
-        // {
-        //     path: '/slider',
-        //     component: (resolve) => require(['./routers/slider.vue'], resolve)
-        // },
+        {
+            path: '/tooltip',
+            component: Tooltip
+        },
+        {
+            path: '/poptip',
+            component: Poptip
+        },
+        {
+            path: '/slider',
+            component: Slider
+        },
         // {
         //     path: '/dropdown',
         //     component: (resolve) => require(['./routers/dropdown.vue'], resolve)

@@ -316,7 +316,17 @@
 
 <script>
     export default {
-        name: 'button page'
+        name: 'button page',
+        data () {
+            return {
+                buttonSize: 'large'
+            }
+        },
+        methods: {
+            hc (data) {
+                console.log(data);
+            }
+        }
     }
 </script>
 <style>

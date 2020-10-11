@@ -26,6 +26,7 @@
     import TransferDom from '../../directives/transfer-dom';
     import { oneOf } from '../../utils/assist';
     import { transferIndex, transferIncrease } from '../../utils/transfer-queue';
+    import { getCurrentInstance } from 'vue';
 
     const prefixCls = 'ivu-tooltip';
 
@@ -63,8 +64,9 @@
             transfer: {
                 type: Boolean,
                 default () {
-                    return !this.$IVIEW || this.$IVIEW.transfer === '' ? false : this.$IVIEW.transfer;
-                }
+                    const internalInstance = getCurrentInstance();
+                    const config = internalInstance.appContext.config;
+                    return !config.$IVIEW || config.$IVIEW.size === '' ? 'default' : config.$IVIEW.size;                }
             },
             theme: {
                 validator (value) {
