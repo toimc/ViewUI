@@ -11,11 +11,12 @@
     "allowSyntheticDefaultImports": true,
     "sourceMap": true,
     "baseUrl": ".",
+    "noImplicitAny": false,
     "paths": {
       "@/*": ["src/*"]
     },
     "lib": ["esnext", "dom", "dom.iterable", "scripthost"]
   },
-  "include": ["types/*.ts"],
+  "include": ["types/*.ts", "src/**/*.ts"],
   "exclude": ["node_modules"]
 }

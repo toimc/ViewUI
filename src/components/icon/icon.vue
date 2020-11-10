@@ -1,10 +1,17 @@
 <template>
-    <i :class="classes" :style="styles" @click="handleClick"></i>
+  <i :class="state.classes" :style="state.styles" @click="handleClick"></i>
 </template>
-<script>
+<script lang="ts">
+import { computed, defineComponent, reactive } from 'vue'
+
 const prefixCls = 'ivu-icon'
 
-export default {
+interface Styles {
+  'font-size': string;
+  color: string;
+}
+
+export default defineComponent({
   name: 'Icon',
   props: {
     type: {
@@ -18,34 +25,39 @@ export default {
       default: ''
     }
   },
-  computed: {
-    classes () {
-      return [
-                    `${prefixCls}`,
-                    {
-                      [`${prefixCls}-${this.type}`]: this.type !== '',
-                      [`${this.custom}`]: this.custom !== ''
-                    }
-      ]
-    },
-    styles () {
-      const style = {}
+  setup (props, { emit }) {
+    const state = reactive({
+      classes: computed(() => {
+        return [
+          `${prefixCls}`,
+          {
+            [`${prefixCls}-${props.type}`]: props.type !== '',
+            [`${props.custom}`]: props.custom !== ''
+          }
+        ]
+      }),
+      styles: computed(() => {
+        const style = {} as Styles
 
-      if (this.size) {
-        style['font-size'] = `${this.size}px`
-      }
+        if (props.size) {
+          style['font-size'] = `${props.size}px`
+        }
 
-      if (this.color) {
-        style.color = this.color
-      }
+        if (props.color) {
+          style.color = props.color
+        }
 
-      return style
+        return style
+      })
+    })
+
+    const handleClick = (event: Event) => {
+      emit('click', event)
     }
-  },
-  methods: {
-    handleClick (event) {
-      this.$emit('click', event)
+    return {
+      state,
+      handleClick
     }
   }
-}
+})
 </script>
