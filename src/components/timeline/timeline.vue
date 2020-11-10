@@ -4,25 +4,25 @@
     </ul>
 </template>
 <script>
-    const prefixCls = 'ivu-timeline';
+const prefixCls = 'ivu-timeline'
 
-    export default {
-        name: 'Timeline',
-        props: {
-            pending: {
-                type: Boolean,
-                default: false
-            }
-        },
-        computed: {
-            classes () {
-                return [
+export default {
+  name: 'Timeline',
+  props: {
+    pending: {
+      type: Boolean,
+      default: false
+    }
+  },
+  computed: {
+    classes () {
+      return [
                     `${prefixCls}`,
                     {
-                        [`${prefixCls}-pending`]: this.pending
+                      [`${prefixCls}-pending`]: this.pending
                     }
-                ];
-            }
-        }
-    };
+      ]
+    }
+  }
+}
 </script>

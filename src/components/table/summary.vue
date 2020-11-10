@@ -17,30 +17,30 @@
     </div>
 </template>
 <script>
-    import Mixin from './mixin';
+import Mixin from './mixin'
 
-    export default {
-        name: 'TableSummary',
-        mixins: [ Mixin ],
-        props: {
-            prefixCls: String,
-            styleObject: Object,
-            columns: Array,
-            data: Object,    // rebuildData
-            columnsWidth: Object,
-            fixed: {
-                type: [Boolean, String],
-                default: false
-            },
-        },
-        methods: {
-            cellCls (column) {
-                return [
-                    {
-                        ['ivu-table-hidden']: (this.fixed === 'left' && column.fixed !== 'left') || (this.fixed === 'right' && column.fixed !== 'right') || (!this.fixed && column.fixed && (column.fixed === 'left' || column.fixed === 'right'))
-                    }
-                ];
-            }
+export default {
+  name: 'TableSummary',
+  mixins: [Mixin],
+  props: {
+    prefixCls: String,
+    styleObject: Object,
+    columns: Array,
+    data: Object, // rebuildData
+    columnsWidth: Object,
+    fixed: {
+      type: [Boolean, String],
+      default: false
+    }
+  },
+  methods: {
+    cellCls (column) {
+      return [
+        {
+          'ivu-table-hidden': (this.fixed === 'left' && column.fixed !== 'left') || (this.fixed === 'right' && column.fixed !== 'right') || (!this.fixed && column.fixed && (column.fixed === 'left' || column.fixed === 'right'))
         }
-    };
+      ]
+    }
+  }
+}
 </script>

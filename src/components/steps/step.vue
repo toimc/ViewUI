@@ -17,90 +17,90 @@
     </div>
 </template>
 <script>
-    import Emitter from '../../mixins/emitter';
-    import { oneOf } from '../../utils/assist';
+import Emitter from '../../mixins/emitter'
+import { oneOf } from '../../utils/assist'
 
-    const prefixCls = 'ivu-steps';
-    const iconPrefixCls = 'ivu-icon';
+const prefixCls = 'ivu-steps'
+const iconPrefixCls = 'ivu-icon'
 
-    export default {
-        name: 'Step',
-        mixins: [ Emitter ],
-        props: {
-            status: {
-                validator (value) {
-                    return oneOf(value, ['wait', 'process', 'finish', 'error']);
-                }
-            },
-            title: {
-                type: String,
-                default: ''
-            },
-            content: {
-                type: String
-            },
-            icon: {
-                type: String
-            }
-        },
-        data () {
-            return {
-                prefixCls: prefixCls,
-                stepNumber: '',
-                nextError: false,
-                total: 1,
-                currentStatus: ''
-            };
-        },
-        computed: {
-            wrapClasses () {
-                return [
+export default {
+  name: 'Step',
+  mixins: [Emitter],
+  props: {
+    status: {
+      validator (value) {
+        return oneOf(value, ['wait', 'process', 'finish', 'error'])
+      }
+    },
+    title: {
+      type: String,
+      default: ''
+    },
+    content: {
+      type: String
+    },
+    icon: {
+      type: String
+    }
+  },
+  data () {
+    return {
+      prefixCls: prefixCls,
+      stepNumber: '',
+      nextError: false,
+      total: 1,
+      currentStatus: ''
+    }
+  },
+  computed: {
+    wrapClasses () {
+      return [
                     `${prefixCls}-item`,
                     `${prefixCls}-status-${this.currentStatus}`,
                     {
-                        [`${prefixCls}-custom`]: !!this.icon || !!this.$slots.icon,
-                        [`${prefixCls}-next-error`]: this.nextError
+                      [`${prefixCls}-custom`]: !!this.icon || !!this.$slots.icon,
+                      [`${prefixCls}-next-error`]: this.nextError
                     }
-                ];
-            },
-            iconClasses () {
-                let icon = '';
+      ]
+    },
+    iconClasses () {
+      let icon = ''
 
-                if (this.icon) {
-                    icon = this.icon;
-                } else {
-                    if (this.currentStatus === 'finish') {
-                        icon = 'ios-checkmark';
-                    } else if (this.currentStatus === 'error') {
-                        icon = 'ios-close';
-                    }
-                }
+      if (this.icon) {
+        icon = this.icon
+      } else {
+        if (this.currentStatus === 'finish') {
+          icon = 'ios-checkmark'
+        } else if (this.currentStatus === 'error') {
+          icon = 'ios-close'
+        }
+      }
 
-                return [
+      return [
                     `${prefixCls}-icon`,
                     `${iconPrefixCls}`,
                     {
-                        [`${iconPrefixCls}-${icon}`]: icon !== ''
+                      [`${iconPrefixCls}-${icon}`]: icon !== ''
                     }
-                ];
-            }
-        },
-        watch: {
-            status (val) {
-                this.currentStatus = val;
-                if (this.currentStatus === 'error') {
-                    this.$parent.setNextError();
-                }
-            }
-        },
-        created () {
-            this.currentStatus = this.status;
-        },
-        mounted () {
-            this.dispatch('Steps', 'append');
-        },
-        beforeDestroy () {
-            this.dispatch('Steps', 'remove');
-        }
-    };
+      ]
+    }
+  },
+  watch: {
+    status (val) {
+      this.currentStatus = val
+      if (this.currentStatus === 'error') {
+        this.$parent.setNextError()
+      }
+    }
+  },
+  created () {
+    this.currentStatus = this.status
+  },
+  mounted () {
+    this.dispatch('Steps', 'append')
+  },
+  beforeDestroy () {
+    this.dispatch('Steps', 'remove')
+  }
+}
 </script>

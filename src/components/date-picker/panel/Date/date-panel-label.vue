@@ -16,10 +16,10 @@
 
 <script>
 export default {
-    props: {
-        datePanelLabel: Object,
-        currentView: String,
-        datePrefixCls: String
-    }
-};
+  props: {
+    datePanelLabel: Object,
+    currentView: String,
+    datePrefixCls: String
+  }
+}
 </script>

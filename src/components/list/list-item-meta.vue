@@ -12,24 +12,24 @@
     </div>
 </template>
 <script>
-    import Avatar from '../../components/avatar/avatar.vue';
+import Avatar from '../../components/avatar/avatar.vue'
 
-    export default {
-        name: 'ListItemMeta',
-        components: { Avatar },
-        props: {
-            avatar: {
-                type: String,
-                default: ''
-            },
-            title: {
-                type: String,
-                default: ''
-            },
-            description: {
-                type: String,
-                default: ''
-            }
-        }
-    };
+export default {
+  name: 'ListItemMeta',
+  components: { Avatar },
+  props: {
+    avatar: {
+      type: String,
+      default: ''
+    },
+    title: {
+      type: String,
+      default: ''
+    },
+    description: {
+      type: String,
+      default: ''
+    }
+  }
+}
 </script>

@@ -20,91 +20,91 @@
     </div>
 </template>
 <script>
-    import iSelect from '../../components/select/select.vue';
-    import iOption from '../../components/select/option.vue';
-    import Locale from '../../mixins/locale';
+import iSelect from '../../components/select/select.vue'
+import iOption from '../../components/select/option.vue'
+import Locale from '../../mixins/locale'
 
-    const prefixCls = 'ivu-page';
+const prefixCls = 'ivu-page'
 
-    function isValueNumber (value) {
-        return (/^[1-9][0-9]*$/).test(value + '');
+function isValueNumber (value) {
+  return (/^[1-9][0-9]*$/).test(value + '')
+}
+
+export default {
+  name: 'PageOption',
+  mixins: [Locale],
+  components: { iSelect, iOption },
+  props: {
+    pageSizeOpts: Array,
+    showSizer: Boolean,
+    showElevator: Boolean,
+    current: Number,
+    _current: Number,
+    pageSize: Number,
+    allPages: Number,
+    isSmall: Boolean,
+    placement: String,
+    transfer: Boolean,
+    disabled: Boolean
+  },
+  data () {
+    return {
+      currentPageSize: this.pageSize
     }
-
-    export default {
-        name: 'PageOption',
-        mixins: [ Locale ],
-        components: { iSelect, iOption },
-        props: {
-            pageSizeOpts: Array,
-            showSizer: Boolean,
-            showElevator: Boolean,
-            current: Number,
-            _current: Number,
-            pageSize: Number,
-            allPages: Number,
-            isSmall: Boolean,
-            placement: String,
-            transfer: Boolean,
-            disabled: Boolean
-        },
-        data () {
-            return {
-                currentPageSize: this.pageSize
-            };
-        },
-        watch: {
-            pageSize (val) {
-                this.currentPageSize = val;
-            }
-        },
-        computed: {
-            size () {
-                return this.isSmall ? 'small' : 'default';
-            },
-            optsClasses () {
-                return [
+  },
+  watch: {
+    pageSize (val) {
+      this.currentPageSize = val
+    }
+  },
+  computed: {
+    size () {
+      return this.isSmall ? 'small' : 'default'
+    },
+    optsClasses () {
+      return [
                     `${prefixCls}-options`
-                ];
-            },
-            sizerClasses () {
-                return [
+      ]
+    },
+    sizerClasses () {
+      return [
                     `${prefixCls}-options-sizer`
-                ];
-            },
-            ElevatorClasses () {
-                return [
+      ]
+    },
+    ElevatorClasses () {
+      return [
                     `${prefixCls}-options-elevator`
-                ];
-            }
-        },
-        methods: {
-            changeSize () {
-                this.$emit('on-size', this.currentPageSize);
-            },
-            changePage (event) {
-                let val = event.target.value.trim();
-                let page = 0;
+      ]
+    }
+  },
+  methods: {
+    changeSize () {
+      this.$emit('on-size', this.currentPageSize)
+    },
+    changePage (event) {
+      let val = event.target.value.trim()
+      let page = 0
 
-                if (isValueNumber(val)) {
-                    val = Number(val);
-                    if (val != this.current) {
-                        const allPages = this.allPages;
+      if (isValueNumber(val)) {
+        val = Number(val)
+        if (val != this.current) {
+          const allPages = this.allPages
 
-                        if (val > allPages) {
-                            page = allPages;
-                        } else {
-                            page = val;
-                        }
-                    }
-                } else {
-                    page = 1;
-                }
-
-                if (page) {
-                    this.$emit('on-page', page);
-                    event.target.value = page;
-                }
-            }
+          if (val > allPages) {
+            page = allPages
+          } else {
+            page = val
+          }
         }
-    };
+      } else {
+        page = 1
+      }
+
+      if (page) {
+        this.$emit('on-page', page)
+        event.target.value = page
+      }
+    }
+  }
+}
 </script>

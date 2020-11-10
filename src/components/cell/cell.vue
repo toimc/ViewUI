@@ -31,100 +31,100 @@
     </div>
 </template>
 <script>
-    import CellItem from './cell-item.vue';
-    import Icon from '../icon/icon.vue';
-    import mixinsLink from '../../mixins/link';
+import CellItem from './cell-item.vue'
+import Icon from '../icon/icon.vue'
+import mixinsLink from '../../mixins/link'
 
-    const prefixCls = 'ivu-cell';
+const prefixCls = 'ivu-cell'
 
-    export default {
-        name: 'Cell',
-        inject: ['cellGroup'],
-        mixins: [ mixinsLink ],
-        components: { CellItem, Icon },
-        props: {
-            name: {
-                type: [String, Number]
-            },
-            title: {
-                type: String,
-                default: ''
-            },
-            label: {
-                type: String,
-                default: ''
-            },
-            extra: {
-                type: String,
-                default: ''
-            },
-            disabled: {
-                type: Boolean,
-                default: false
-            },
-            selected: {
-                type: Boolean,
-                default: false
-            }
-        },
-        data () {
-            return {
-                prefixCls: prefixCls
-            };
-        },
-        computed: {
-            classes () {
-                return [
+export default {
+  name: 'Cell',
+  inject: ['cellGroup'],
+  mixins: [mixinsLink],
+  components: { CellItem, Icon },
+  props: {
+    name: {
+      type: [String, Number]
+    },
+    title: {
+      type: String,
+      default: ''
+    },
+    label: {
+      type: String,
+      default: ''
+    },
+    extra: {
+      type: String,
+      default: ''
+    },
+    disabled: {
+      type: Boolean,
+      default: false
+    },
+    selected: {
+      type: Boolean,
+      default: false
+    }
+  },
+  data () {
+    return {
+      prefixCls: prefixCls
+    }
+  },
+  computed: {
+    classes () {
+      return [
                     `${prefixCls}`,
                     {
-                        [`${prefixCls}-disabled`]: this.disabled,
-                        [`${prefixCls}-selected`]: this.selected,
-                        [`${prefixCls}-with-link`]: this.to
+                      [`${prefixCls}-disabled`]: this.disabled,
+                      [`${prefixCls}-selected`]: this.selected,
+                      [`${prefixCls}-with-link`]: this.to
                     }
-                ];
-            },
-            // 3.4.0, global setting customArrow 有值时，arrow 赋值空
-            arrowType () {
-                let type = 'ios-arrow-forward';
+      ]
+    },
+    // 3.4.0, global setting customArrow 有值时，arrow 赋值空
+    arrowType () {
+      let type = 'ios-arrow-forward'
 
-                if (this.$IVIEW) {
-                    if (this.$IVIEW.cell.customArrow) {
-                        type = '';
-                    } else if (this.$IVIEW.cell.arrow) {
-                        type = this.$IVIEW.cell.arrow;
-                    }
-                }
-                return type;
-            },
-            // 3.4.0, global setting
-            customArrowType () {
-                let type = '';
-
-                if (this.$IVIEW) {
-                    if (this.$IVIEW.cell.customArrow) {
-                        type = this.$IVIEW.cell.customArrow;
-                    }
-                }
-                return type;
-            },
-            // 3.4.0, global setting
-            arrowSize () {
-                let size = '';
-
-                if (this.$IVIEW) {
-                    if (this.$IVIEW.cell.arrowSize) {
-                        size = this.$IVIEW.cell.arrowSize;
-                    }
-                }
-                return size;
-            }
-        },
-        methods: {
-            handleClickItem (event, new_window) {
-                this.cellGroup.handleClick(this.name);
-
-                this.handleCheckClick(event, new_window);
-            }
+      if (this.$IVIEW) {
+        if (this.$IVIEW.cell.customArrow) {
+          type = ''
+        } else if (this.$IVIEW.cell.arrow) {
+          type = this.$IVIEW.cell.arrow
         }
-    };
+      }
+      return type
+    },
+    // 3.4.0, global setting
+    customArrowType () {
+      let type = ''
+
+      if (this.$IVIEW) {
+        if (this.$IVIEW.cell.customArrow) {
+          type = this.$IVIEW.cell.customArrow
+        }
+      }
+      return type
+    },
+    // 3.4.0, global setting
+    arrowSize () {
+      let size = ''
+
+      if (this.$IVIEW) {
+        if (this.$IVIEW.cell.arrowSize) {
+          size = this.$IVIEW.cell.arrowSize
+        }
+      }
+      return size
+    }
+  },
+  methods: {
+    handleClickItem (event, new_window) {
+      this.cellGroup.handleClick(this.name)
+
+      this.handleCheckClick(event, new_window)
+    }
+  }
+}
 </script>

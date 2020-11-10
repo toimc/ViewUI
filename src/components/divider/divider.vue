@@ -7,60 +7,60 @@
 </template>
 
 <script>
-    import {oneOf} from '../../utils/assist';
+import { oneOf } from '../../utils/assist'
 
-    const prefixCls = 'ivu-divider';
+const prefixCls = 'ivu-divider'
 
-    export default {
-        name: 'Divider',
-        props: {
-            type: {
-                type: String,
-                default: 'horizontal',
-                validator (value) {
-                    return oneOf(value, ['horizontal', 'vertical']);
-                }
-            },
-            orientation: {
-                type: String,
-                default: 'center',
-                validator (value) {
-                    return oneOf(value, ['left', 'right', 'center']);
-                }
-            },
-            dashed: {
-                type: Boolean,
-                default: false,
-            },
-            size: {
-                validator (value) {
-                    return oneOf(value, ['small', 'default']);
-                },
-                default: 'default'
-            }
-        },
-        computed: {
-            hasSlot() {
-                return true
-                // return !!this.$slots.default();
-            },
-            classes() {
-                return [
+export default {
+  name: 'Divider',
+  props: {
+    type: {
+      type: String,
+      default: 'horizontal',
+      validator (value) {
+        return oneOf(value, ['horizontal', 'vertical'])
+      }
+    },
+    orientation: {
+      type: String,
+      default: 'center',
+      validator (value) {
+        return oneOf(value, ['left', 'right', 'center'])
+      }
+    },
+    dashed: {
+      type: Boolean,
+      default: false
+    },
+    size: {
+      validator (value) {
+        return oneOf(value, ['small', 'default'])
+      },
+      default: 'default'
+    }
+  },
+  computed: {
+    hasSlot () {
+      return true
+      // return !!this.$slots.default();
+    },
+    classes () {
+      return [
                     `${prefixCls}`,
                     `${prefixCls}-${this.type}`,
                     `${prefixCls}-${this.size}`,
                     {
-                        [`${prefixCls}-with-text`]: this.hasSlot && this.orientation === 'center',
-                        [`${prefixCls}-with-text-${this.orientation}`]: this.hasSlot,
-                        [`${prefixCls}-dashed`]: !!this.dashed
+                      [`${prefixCls}-with-text`]: this.hasSlot && this.orientation === 'center',
+                      [`${prefixCls}-with-text-${this.orientation}`]: this.hasSlot,
+                      [`${prefixCls}-dashed`]: !!this.dashed
                     }
-                ];
-            },
-            slotClasses() {
-                return [
-                    `${prefixCls}-inner-text`,
-                ];
-            }
-        }
-    };
+      ]
+    },
+    slotClasses () {
+      return [
+                    `${prefixCls}-inner-text`
+      ]
+    }
+  }
+}
 </script>

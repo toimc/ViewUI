@@ -21,96 +21,96 @@
     </div>
 </template>
 <script>
-    import Notice from './notice.vue';
+import Notice from './notice.vue'
 
-    import { transferIndex, transferIncrease } from '../../../utils/transfer-queue';
+import { transferIndex, transferIncrease } from '../../../utils/transfer-queue'
 
-    const prefixCls = 'ivu-notification';
-    let seed = 0;
-    const now = Date.now();
+const prefixCls = 'ivu-notification'
+let seed = 0
+const now = Date.now()
 
-    function getUuid () {
-        return 'ivuNotification_' + now + '_' + (seed++);
+function getUuid () {
+  return 'ivuNotification_' + now + '_' + (seed++)
+}
+
+export default {
+  components: { Notice },
+  props: {
+    prefixCls: {
+      type: String,
+      default: prefixCls
+    },
+    styles: {
+      type: Object,
+      default: function () {
+        return {
+          top: '65px',
+          left: '50%'
+        }
+      }
+    },
+    content: {
+      type: String
+    },
+    className: {
+      type: String
     }
-
-    export default {
-        components: { Notice },
-        props: {
-            prefixCls: {
-                type: String,
-                default: prefixCls
-            },
-            styles: {
-                type: Object,
-                default: function () {
-                    return {
-                        top: '65px',
-                        left: '50%'
-                    };
-                }
-            },
-            content: {
-                type: String
-            },
-            className: {
-                type: String
-            }
-        },
-        data () {
-            return {
-                notices: [],
-                tIndex: this.handleGetIndex()
-            };
-        },
-        computed: {
-            classes () {
-                return [
+  },
+  data () {
+    return {
+      notices: [],
+      tIndex: this.handleGetIndex()
+    }
+  },
+  computed: {
+    classes () {
+      return [
                     `${this.prefixCls}`,
                     {
-                        [`${this.className}`]: !!this.className
+                      [`${this.className}`]: !!this.className
                     }
-                ];
-            },
-            wrapStyles () {
-                let styles = Object.assign({}, this.styles);
-                styles['z-index'] = 1010 + this.tIndex;
+      ]
+    },
+    wrapStyles () {
+      const styles = Object.assign({}, this.styles)
+      styles['z-index'] = 1010 + this.tIndex
 
-                return styles;
-            }
+      return styles
+    }
+  },
+  methods: {
+    add (notice) {
+      const name = notice.name || getUuid()
+
+      const _notice = Object.assign({
+        styles: {
+          right: '50%'
         },
-        methods: {
-            add (notice) {
-                const name = notice.name || getUuid();
+        content: '',
+        duration: 1.5,
+        closable: false,
+        name: name
+      }, notice)
 
-                let _notice = Object.assign({
-                    styles: {
-                        right: '50%'
-                    },
-                    content: '',
-                    duration: 1.5,
-                    closable: false,
-                    name: name
-                }, notice);
-
-                this.notices.push(_notice);
-                this.tIndex = this.handleGetIndex();
-            },
-            close (name) {
-                const notices = this.notices;
-                for (let i = 0; i < notices.length; i++) {
-                    if (notices[i].name === name) {
-                        this.notices.splice(i, 1);
-                        break;
-                    }
-                }
-            },
-            closeAll () {
-                this.notices = [];
-            },
-            handleGetIndex () {
-                transferIncrease();
-                return transferIndex;
-            },
+      this.notices.push(_notice)
+      this.tIndex = this.handleGetIndex()
+    },
+    close (name) {
+      const notices = this.notices
+      for (let i = 0; i < notices.length; i++) {
+        if (notices[i].name === name) {
+          this.notices.splice(i, 1)
+          break
         }
-    };
+      }
+    },
+    closeAll () {
+      this.notices = []
+    },
+    handleGetIndex () {
+      transferIncrease()
+      return transferIndex
+    }
+  }
+}
 </script>

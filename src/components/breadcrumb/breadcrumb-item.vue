@@ -20,31 +20,31 @@
     </span>
 </template>
 <script>
-    import mixinsLink from '../../mixins/link';
-    const prefixCls = 'ivu-breadcrumb-item';
+import mixinsLink from '../../mixins/link'
+const prefixCls = 'ivu-breadcrumb-item'
 
-    export default {
-        name: 'BreadcrumbItem',
-        mixins: [ mixinsLink ],
-        props: {
+export default {
+  name: 'BreadcrumbItem',
+  mixins: [mixinsLink],
+  props: {
 
-        },
-        data () {
-            return {
-                separator: '',
-                showSeparator: false
-            };
-        },
-        computed: {
-            linkClasses () {
-                return `${prefixCls}-link`;
-            },
-            separatorClasses () {
-                return `${prefixCls}-separator`;
-            }
-        },
-        mounted () {
-            this.showSeparator = this.$slots.separator !== undefined;
-        }
-    };
+  },
+  data () {
+    return {
+      separator: '',
+      showSeparator: false
+    }
+  },
+  computed: {
+    linkClasses () {
+      return `${prefixCls}-link`
+    },
+    separatorClasses () {
+      return `${prefixCls}-separator`
+    }
+  },
+  mounted () {
+    this.showSeparator = this.$slots.separator !== undefined
+  }
+}
 </script>

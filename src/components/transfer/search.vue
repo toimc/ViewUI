@@ -9,40 +9,40 @@
     </div>
 </template>
 <script>
-    import iInput from '../input/input.vue';
+import iInput from '../input/input.vue'
 
-    export default {
-        name: 'Search',
-        components: { iInput },
-        props: {
-            prefixCls: String,
-            placeholder: String,
-            query: String
-        },
-        data () {
-            return {
-                currentQuery: this.query
-            };
-        },
-        watch: {
-            query (val) {
-                this.currentQuery = val;
-            },
-            currentQuery (val) {
-                this.$emit('on-query-change', val);
-            }
-        },
-        computed: {
-            icon () {
-                return this.query === '' ? 'ios-search' : 'ios-close-circle';
-            }
-        },
-        methods: {
-            handleClick () {
-                if (this.currentQuery === '') return;
-                this.currentQuery = '';
-                this.$emit('on-query-clear');
-            }
-        }
-    };
+export default {
+  name: 'Search',
+  components: { iInput },
+  props: {
+    prefixCls: String,
+    placeholder: String,
+    query: String
+  },
+  data () {
+    return {
+      currentQuery: this.query
+    }
+  },
+  watch: {
+    query (val) {
+      this.currentQuery = val
+    },
+    currentQuery (val) {
+      this.$emit('on-query-change', val)
+    }
+  },
+  computed: {
+    icon () {
+      return this.query === '' ? 'ios-search' : 'ios-close-circle'
+    }
+  },
+  methods: {
+    handleClick () {
+      if (this.currentQuery === '') return
+      this.currentQuery = ''
+      this.$emit('on-query-clear')
+    }
+  }
+}
 </script>

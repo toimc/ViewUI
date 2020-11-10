@@ -80,312 +80,312 @@
     </div>
 </template>
 <script>
-    import { oneOf, findComponentUpward } from '../../utils/assist';
-    import calcTextareaHeight from '../../utils/calcTextareaHeight';
-    import Emitter from '../../mixins/emitter';
-    import mixinsForm from '../../mixins/form';
+import { oneOf, findComponentUpward } from '../../utils/assist'
+import calcTextareaHeight from '../../utils/calcTextareaHeight'
+import Emitter from '../../mixins/emitter'
+import mixinsForm from '../../mixins/form'
 
-    const prefixCls = 'ivu-input';
+const prefixCls = 'ivu-input'
 
-    export default {
-        name: 'Input',
-        mixins: [ Emitter, mixinsForm ],
-        props: {
-            type: {
-                validator (value) {
-                    return oneOf(value, ['text', 'textarea', 'password', 'url', 'email', 'date', 'number', 'tel']);
-                },
-                default: 'text'
-            },
-            value: {
-                type: [String, Number],
-                default: ''
-            },
-            size: {
-                validator (value) {
-                    return oneOf(value, ['small', 'large', 'default']);
-                },
-                default () {
-                    return 'default';
-                    // return !this.$IVIEW || this.$IVIEW.size === '' ? 'default' : this.$IVIEW.size;
-                }
-            },
-            placeholder: {
-                type: String,
-                default: ''
-            },
-            maxlength: {
-                type: [String, Number]
-            },
-            disabled: {
-                type: Boolean,
-                default: false
-            },
-            icon: String,
-            autosize: {
-                type: [Boolean, Object],
-                default: false
-            },
-            rows: {
-                type: Number,
-                default: 2
-            },
-            readonly: {
-                type: Boolean,
-                default: false
-            },
-            name: {
-                type: String
-            },
-            number: {
-                type: Boolean,
-                default: false
-            },
-            autofocus: {
-                type: Boolean,
-                default: false
-            },
-            spellcheck: {
-                type: Boolean,
-                default: false
-            },
-            autocomplete: {
-                type: String,
-                default: 'off'
-            },
-            clearable: {
-                type: Boolean,
-                default: false
-            },
-            elementId: {
-                type: String
-            },
-            wrap: {
-                validator (value) {
-                    return oneOf(value, ['hard', 'soft']);
-                },
-                default: 'soft'
-            },
-            prefix: {
-                type: String,
-                default: ''
-            },
-            suffix: {
-                type: String,
-                default: ''
-            },
-            search: {
-                type: Boolean,
-                default: false
-            },
-            enterButton: {
-                type: [Boolean, String],
-                default: false
-            },
-            // 4.0.0
-            showWordLimit: {
-                type: Boolean,
-                default: false
-            },
-            // 4.0.0
-            password: {
-                type: Boolean,
-                default: false
-            }
-        },
-        data () {
-            return {
-                currentValue: this.value,
-                prefixCls: prefixCls,
-                slotReady: false,
-                textareaStyles: {},
-                isOnComposition: false,
-                showPassword: false
-            };
-        },
-        computed: {
-            currentType () {
-                let type = this.type;
-                if (type === 'password' && this.password && this.showPassword) type = 'text';
-                return type;
-            },
-            prepend () {
-                let state = false;
-                if (this.type !== 'textarea') state = this.$slots.prepend !== undefined;
-                return state;
-            },
-            append () {
-                let state = false;
-                if (this.type !== 'textarea') state = this.$slots.append !== undefined;
-                return state;
-            },
-            showPrefix () {
-                let state = false;
-                if (this.type !== 'textarea') state = this.prefix !== '' || this.$slots.prefix !== undefined;
-                return state;
-            },
-            showSuffix () {
-                let state = false;
-                if (this.type !== 'textarea') state = this.suffix !== '' || this.$slots.suffix !== undefined;
-                return state;
-            },
-            wrapClasses () {
-                return [
+export default {
+  name: 'Input',
+  mixins: [Emitter, mixinsForm],
+  props: {
+    type: {
+      validator (value) {
+        return oneOf(value, ['text', 'textarea', 'password', 'url', 'email', 'date', 'number', 'tel'])
+      },
+      default: 'text'
+    },
+    value: {
+      type: [String, Number],
+      default: ''
+    },
+    size: {
+      validator (value) {
+        return oneOf(value, ['small', 'large', 'default'])
+      },
+      default () {
+        return 'default'
+        // return !this.$IVIEW || this.$IVIEW.size === '' ? 'default' : this.$IVIEW.size;
+      }
+    },
+    placeholder: {
+      type: String,
+      default: ''
+    },
+    maxlength: {
+      type: [String, Number]
+    },
+    disabled: {
+      type: Boolean,
+      default: false
+    },
+    icon: String,
+    autosize: {
+      type: [Boolean, Object],
+      default: false
+    },
+    rows: {
+      type: Number,
+      default: 2
+    },
+    readonly: {
+      type: Boolean,
+      default: false
+    },
+    name: {
+      type: String
+    },
+    number: {
+      type: Boolean,
+      default: false
+    },
+    autofocus: {
+      type: Boolean,
+      default: false
+    },
+    spellcheck: {
+      type: Boolean,
+      default: false
+    },
+    autocomplete: {
+      type: String,
+      default: 'off'
+    },
+    clearable: {
+      type: Boolean,
+      default: false
+    },
+    elementId: {
+      type: String
+    },
+    wrap: {
+      validator (value) {
+        return oneOf(value, ['hard', 'soft'])
+      },
+      default: 'soft'
+    },
+    prefix: {
+      type: String,
+      default: ''
+    },
+    suffix: {
+      type: String,
+      default: ''
+    },
+    search: {
+      type: Boolean,
+      default: false
+    },
+    enterButton: {
+      type: [Boolean, String],
+      default: false
+    },
+    // 4.0.0
+    showWordLimit: {
+      type: Boolean,
+      default: false
+    },
+    // 4.0.0
+    password: {
+      type: Boolean,
+      default: false
+    }
+  },
+  data () {
+    return {
+      currentValue: this.value,
+      prefixCls: prefixCls,
+      slotReady: false,
+      textareaStyles: {},
+      isOnComposition: false,
+      showPassword: false
+    }
+  },
+  computed: {
+    currentType () {
+      let type = this.type
+      if (type === 'password' && this.password && this.showPassword) type = 'text'
+      return type
+    },
+    prepend () {
+      let state = false
+      if (this.type !== 'textarea') state = this.$slots.prepend !== undefined
+      return state
+    },
+    append () {
+      let state = false
+      if (this.type !== 'textarea') state = this.$slots.append !== undefined
+      return state
+    },
+    showPrefix () {
+      let state = false
+      if (this.type !== 'textarea') state = this.prefix !== '' || this.$slots.prefix !== undefined
+      return state
+    },
+    showSuffix () {
+      let state = false
+      if (this.type !== 'textarea') state = this.suffix !== '' || this.$slots.suffix !== undefined
+      return state
+    },
+    wrapClasses () {
+      return [
                     `${prefixCls}-wrapper`,
                     {
-                        [`${prefixCls}-wrapper-${this.size}`]: !!this.size,
-                        [`${prefixCls}-type-${this.type}`]: this.type,
-                        [`${prefixCls}-group`]: this.prepend || this.append || (this.search && this.enterButton),
-                        [`${prefixCls}-group-${this.size}`]: (this.prepend || this.append || (this.search && this.enterButton)) && !!this.size,
-                        [`${prefixCls}-group-with-prepend`]: this.prepend,
-                        [`${prefixCls}-group-with-append`]: this.append || (this.search && this.enterButton),
-                        [`${prefixCls}-hide-icon`]: this.append,  // #554
-                        [`${prefixCls}-with-search`]: (this.search && this.enterButton)
+                      [`${prefixCls}-wrapper-${this.size}`]: !!this.size,
+                      [`${prefixCls}-type-${this.type}`]: this.type,
+                      [`${prefixCls}-group`]: this.prepend || this.append || (this.search && this.enterButton),
+                      [`${prefixCls}-group-${this.size}`]: (this.prepend || this.append || (this.search && this.enterButton)) && !!this.size,
+                      [`${prefixCls}-group-with-prepend`]: this.prepend,
+                      [`${prefixCls}-group-with-append`]: this.append || (this.search && this.enterButton),
+                      [`${prefixCls}-hide-icon`]: this.append, // #554
+                      [`${prefixCls}-with-search`]: (this.search && this.enterButton)
                     }
-                ];
-            },
-            inputClasses () {
-                return [
+      ]
+    },
+    inputClasses () {
+      return [
                     `${prefixCls}`,
                     {
-                        [`${prefixCls}-${this.size}`]: !!this.size,
-                        [`${prefixCls}-disabled`]: this.itemDisabled,
-                        [`${prefixCls}-with-prefix`]: this.showPrefix,
-                        [`${prefixCls}-with-suffix`]: this.showSuffix || (this.search && this.enterButton === false)
+                      [`${prefixCls}-${this.size}`]: !!this.size,
+                      [`${prefixCls}-disabled`]: this.itemDisabled,
+                      [`${prefixCls}-with-prefix`]: this.showPrefix,
+                      [`${prefixCls}-with-suffix`]: this.showSuffix || (this.search && this.enterButton === false)
                     }
-                ];
-            },
-            textareaClasses () {
-                return [
+      ]
+    },
+    textareaClasses () {
+      return [
                     `${prefixCls}`,
                     {
-                        [`${prefixCls}-disabled`]: this.itemDisabled
+                      [`${prefixCls}-disabled`]: this.itemDisabled
                     }
-                ];
-            },
-            upperLimit () {
-                return this.maxlength;
-            },
-            textLength () {
-                if (typeof this.value === 'number') {
-                    return String(this.value).length;
-                }
+      ]
+    },
+    upperLimit () {
+      return this.maxlength
+    },
+    textLength () {
+      if (typeof this.value === 'number') {
+        return String(this.value).length
+      }
 
-                return (this.value || '').length;
-            }
-        },
-        methods: {
-            handleEnter (event) {
-                this.$emit('on-enter', event);
-                if (this.search) this.$emit('on-search', this.currentValue);
-            },
-            handleKeydown (event) {
-                this.$emit('on-keydown', event);
-            },
-            handleKeypress(event) {
-                this.$emit('on-keypress', event);
-            },
-            handleKeyup (event) {
-                this.$emit('on-keyup', event);
-            },
-            handleIconClick (event) {
-                this.$emit('on-click', event);
-            },
-            handleFocus (event) {
-                this.$emit('on-focus', event);
-            },
-            handleBlur (event) {
-                this.$emit('on-blur', event);
-                if (!findComponentUpward(this, ['DatePicker', 'TimePicker', 'Cascader', 'Search'])) {
-                    this.dispatch('FormItem', 'on-form-blur', this.currentValue);
-                }
-            },
-            handleComposition(event) {
-                if (event.type === 'compositionstart') {
-                    this.isOnComposition = true;
-                }
-                if (event.type === 'compositionend') {
-                    this.isOnComposition = false;
-                    this.handleInput(event);
-                }
-            },
-            handleInput (event) {
-                if (this.isOnComposition) return;
+      return (this.value || '').length
+    }
+  },
+  methods: {
+    handleEnter (event) {
+      this.$emit('on-enter', event)
+      if (this.search) this.$emit('on-search', this.currentValue)
+    },
+    handleKeydown (event) {
+      this.$emit('on-keydown', event)
+    },
+    handleKeypress (event) {
+      this.$emit('on-keypress', event)
+    },
+    handleKeyup (event) {
+      this.$emit('on-keyup', event)
+    },
+    handleIconClick (event) {
+      this.$emit('on-click', event)
+    },
+    handleFocus (event) {
+      this.$emit('on-focus', event)
+    },
+    handleBlur (event) {
+      this.$emit('on-blur', event)
+      if (!findComponentUpward(this, ['DatePicker', 'TimePicker', 'Cascader', 'Search'])) {
+        this.dispatch('FormItem', 'on-form-blur', this.currentValue)
+      }
+    },
+    handleComposition (event) {
+      if (event.type === 'compositionstart') {
+        this.isOnComposition = true
+      }
+      if (event.type === 'compositionend') {
+        this.isOnComposition = false
+        this.handleInput(event)
+      }
+    },
+    handleInput (event) {
+      if (this.isOnComposition) return
 
-                let value = event.target.value;
-                if (this.number && value !== '') value = Number.isNaN(Number(value)) ? value : Number(value);
-                this.$emit('input', value);
-                this.setCurrentValue(value);
-                this.$emit('on-change', event);
-            },
-            handleChange (event) {
-                this.$emit('on-input-change', event);
-            },
-            setCurrentValue (value) {
-                if (value === this.currentValue) return;
-                this.$nextTick(() => {
-                    this.resizeTextarea();
-                });
-                this.currentValue = value;
-                if (!findComponentUpward(this, ['DatePicker', 'TimePicker', 'Cascader', 'Search'])) {
-                    this.dispatch('FormItem', 'on-form-change', value);
-                }
-            },
-            resizeTextarea () {
-                const autosize = this.autosize;
-                if (!autosize || this.type !== 'textarea') {
-                    return false;
-                }
+      let value = event.target.value
+      if (this.number && value !== '') value = Number.isNaN(Number(value)) ? value : Number(value)
+      this.$emit('input', value)
+      this.setCurrentValue(value)
+      this.$emit('on-change', event)
+    },
+    handleChange (event) {
+      this.$emit('on-input-change', event)
+    },
+    setCurrentValue (value) {
+      if (value === this.currentValue) return
+      this.$nextTick(() => {
+        this.resizeTextarea()
+      })
+      this.currentValue = value
+      if (!findComponentUpward(this, ['DatePicker', 'TimePicker', 'Cascader', 'Search'])) {
+        this.dispatch('FormItem', 'on-form-change', value)
+      }
+    },
+    resizeTextarea () {
+      const autosize = this.autosize
+      if (!autosize || this.type !== 'textarea') {
+        return false
+      }
 
-                const minRows = autosize.minRows;
-                const maxRows = autosize.maxRows;
+      const minRows = autosize.minRows
+      const maxRows = autosize.maxRows
 
-                this.textareaStyles = calcTextareaHeight(this.$refs.textarea, minRows, maxRows);
-            },
-            focus () {
-                if (this.type === 'textarea') {
-                    this.$refs.textarea.focus();
-                } else {
-                    this.$refs.input.focus();
-                }
-            },
-            blur () {
-                if (this.type === 'textarea') {
-                    this.$refs.textarea.blur();
-                } else {
-                    this.$refs.input.blur();
-                }
-            },
-            handleClear () {
-                const e = { target: { value: '' } };
-                this.$emit('input', '');
-                this.setCurrentValue('');
-                this.$emit('on-change', e);
-                this.$emit('on-clear');
-            },
-            handleSearch () {
-                if (this.itemDisabled) return false;
-                this.$refs.input.focus();
-                this.$emit('on-search', this.currentValue);
-            },
-            handleToggleShowPassword () {
-                if (this.itemDisabled) return false;
-                this.showPassword = !this.showPassword;
-                this.focus();
-                const len = this.currentValue.length;
-                setTimeout(() => {
-                    this.$refs.input.setSelectionRange(len, len);
-                }, 0);
-            }
-        },
-        watch: {
-            value (val) {
-                this.setCurrentValue(val);
-            }
-        },
-        mounted () {
-            this.slotReady = true;
-            this.resizeTextarea();
-        }
-    };
+      this.textareaStyles = calcTextareaHeight(this.$refs.textarea, minRows, maxRows)
+    },
+    focus () {
+      if (this.type === 'textarea') {
+        this.$refs.textarea.focus()
+      } else {
+        this.$refs.input.focus()
+      }
+    },
+    blur () {
+      if (this.type === 'textarea') {
+        this.$refs.textarea.blur()
+      } else {
+        this.$refs.input.blur()
+      }
+    },
+    handleClear () {
+      const e = { target: { value: '' } }
+      this.$emit('input', '')
+      this.setCurrentValue('')
+      this.$emit('on-change', e)
+      this.$emit('on-clear')
+    },
+    handleSearch () {
+      if (this.itemDisabled) return false
+      this.$refs.input.focus()
+      this.$emit('on-search', this.currentValue)
+    },
+    handleToggleShowPassword () {
+      if (this.itemDisabled) return false
+      this.showPassword = !this.showPassword
+      this.focus()
+      const len = this.currentValue.length
+      setTimeout(() => {
+        this.$refs.input.setSelectionRange(len, len)
+      }, 0)
+    }
+  },
+  watch: {
+    value (val) {
+      this.setCurrentValue(val)
+    }
+  },
+  mounted () {
+    this.slotReady = true
+    this.resizeTextarea()
+  }
+}
 </script>

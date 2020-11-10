@@ -13,20 +13,20 @@
     </div>
 </template>
 <script>
-    export default {
-        props: {
-            title: {
-                type: String,
-                default: ''
-            },
-            label: {
-                type: String,
-                default: ''
-            },
-            extra: {
-                type: String,
-                default: ''
-            },
-        }
-    };
+export default {
+  props: {
+    title: {
+      type: String,
+      default: ''
+    },
+    label: {
+      type: String,
+      default: ''
+    },
+    extra: {
+      type: String,
+      default: ''
+    }
+  }
+}
 </script>

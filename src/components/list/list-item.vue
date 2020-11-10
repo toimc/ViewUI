@@ -23,41 +23,41 @@
     </li>
 </template>
 <script>
-    export default {
-        name: 'ListItem',
-        inject: ['ListInstance'],
-        props: {
+export default {
+  name: 'ListItem',
+  inject: ['ListInstance'],
+  props: {
 
-        },
-        computed: {
-            itemLayout () {
-                return this.ListInstance.itemLayout;
-            },
-            isItemContainsTextNode () {
-                let result;
-                this.$slots.default.forEach(item => {
-                    if (typeof item === 'string') {
-                        result = true;
-                    }
-                });
-                return result;
-            },
-            isFlexMode () {
-                const extra = this.$slots.extra;
-
-                if (this.itemLayout === 'vertical') {
-                    return !!extra;
-                }
-
-                return !this.isItemContainsTextNode;
-            },
-            classes () {
-                return [
-                    {
-                        'ivu-list-item-no-flex': !this.isFlexMode
-                    }
-                ];
-            }
+  },
+  computed: {
+    itemLayout () {
+      return this.ListInstance.itemLayout
+    },
+    isItemContainsTextNode () {
+      let result
+      this.$slots.default.forEach(item => {
+        if (typeof item === 'string') {
+          result = true
         }
-    };
+      })
+      return result
+    },
+    isFlexMode () {
+      const extra = this.$slots.extra
+
+      if (this.itemLayout === 'vertical') {
+        return !!extra
+      }
+
+      return !this.isItemContainsTextNode
+    },
+    classes () {
+      return [
+        {
+          'ivu-list-item-no-flex': !this.isFlexMode
+        }
+      ]
+    }
+  }
+}
 </script>

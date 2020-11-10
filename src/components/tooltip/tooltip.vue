@@ -22,134 +22,135 @@
     </div>
 </template>
 <script>
-    import Popper from '../base/popper';
-    import TransferDom from '../../directives/transfer-dom';
-    import { oneOf } from '../../utils/assist';
-    import { transferIndex, transferIncrease } from '../../utils/transfer-queue';
-    import { getCurrentInstance } from 'vue';
+import Popper from '../base/popper'
+import TransferDom from '../../directives/transfer-dom'
+import { oneOf } from '../../utils/assist'
+import { transferIndex, transferIncrease } from '../../utils/transfer-queue'
+import { getCurrentInstance } from 'vue'
 
-    const prefixCls = 'ivu-tooltip';
+const prefixCls = 'ivu-tooltip'
 
-    export default {
-        name: 'Tooltip',
-        directives: { TransferDom },
-        mixins: [Popper],
-        props: {
-            placement: {
-                validator (value) {
-                    return oneOf(value, ['top', 'top-start', 'top-end', 'bottom', 'bottom-start', 'bottom-end', 'left', 'left-start', 'left-end', 'right', 'right-start', 'right-end']);
-                },
-                default: 'bottom'
-            },
-            content: {
-                type: [String, Number],
-                default: ''
-            },
-            delay: {
-                type: Number,
-                default: 100
-            },
-            disabled: {
-                type: Boolean,
-                default: false
-            },
-            controlled: {    // under this prop,Tooltip will not close when mouseleave
-                type: Boolean,
-                default: false
-            },
-            always: {
-                type: Boolean,
-                default: false
-            },
-            transfer: {
-                type: Boolean,
-                default () {
-                    const internalInstance = getCurrentInstance();
-                    const config = internalInstance.appContext.config;
-                    return !config.$IVIEW || config.$IVIEW.size === '' ? 'default' : config.$IVIEW.size;                }
-            },
-            theme: {
-                validator (value) {
-                    return oneOf(value, ['dark', 'light']);
-                },
-                default: 'dark'
-            },
-            maxWidth: {
-                type: [String, Number]
-            },
-            transferClassName: {
-                type: String
-            }
-        },
-        data () {
-            return {
-                prefixCls: prefixCls,
-                tIndex: this.handleGetIndex()
-            };
-        },
-        computed: {
-            innerStyles () {
-                const styles = {};
-                if (this.maxWidth) styles['max-width'] = `${this.maxWidth}px`;
-                return styles;
-            },
-            innerClasses () {
-                return [
+export default {
+  name: 'Tooltip',
+  directives: { TransferDom },
+  mixins: [Popper],
+  props: {
+    placement: {
+      validator (value) {
+        return oneOf(value, ['top', 'top-start', 'top-end', 'bottom', 'bottom-start', 'bottom-end', 'left', 'left-start', 'left-end', 'right', 'right-start', 'right-end'])
+      },
+      default: 'bottom'
+    },
+    content: {
+      type: [String, Number],
+      default: ''
+    },
+    delay: {
+      type: Number,
+      default: 100
+    },
+    disabled: {
+      type: Boolean,
+      default: false
+    },
+    controlled: { // under this prop,Tooltip will not close when mouseleave
+      type: Boolean,
+      default: false
+    },
+    always: {
+      type: Boolean,
+      default: false
+    },
+    transfer: {
+      type: Boolean,
+      default () {
+        const internalInstance = getCurrentInstance()
+        const config = internalInstance.appContext.config
+        return !config.$IVIEW || config.$IVIEW.size === '' ? 'default' : config.$IVIEW.size
+      }
+    },
+    theme: {
+      validator (value) {
+        return oneOf(value, ['dark', 'light'])
+      },
+      default: 'dark'
+    },
+    maxWidth: {
+      type: [String, Number]
+    },
+    transferClassName: {
+      type: String
+    }
+  },
+  data () {
+    return {
+      prefixCls: prefixCls,
+      tIndex: this.handleGetIndex()
+    }
+  },
+  computed: {
+    innerStyles () {
+      const styles = {}
+      if (this.maxWidth) styles['max-width'] = `${this.maxWidth}px`
+      return styles
+    },
+    innerClasses () {
+      return [
                     `${prefixCls}-inner`,
                     {
-                        [`${prefixCls}-inner-with-width`]: !!this.maxWidth
+                      [`${prefixCls}-inner-with-width`]: !!this.maxWidth
                     }
-                ];
-            },
-            dropStyles () {
-                let styles = {};
-                if (this.transfer) styles['z-index'] = 1060 + this.tIndex;
+      ]
+    },
+    dropStyles () {
+      const styles = {}
+      if (this.transfer) styles['z-index'] = 1060 + this.tIndex
 
-                return styles;
-            },
-            dropdownCls () {
-                return [
+      return styles
+    },
+    dropdownCls () {
+      return [
                     `${prefixCls}-popper`,
                     `${prefixCls}-${this.theme}`,
                     {
-                        [prefixCls + '-transfer']: this.transfer,
-                        [this.transferClassName]: this.transferClassName
+                      [prefixCls + '-transfer']: this.transfer,
+                      [this.transferClassName]: this.transferClassName
                     }
-                ];
-            }
-        },
-        watch: {
-            content () {
-                this.updatePopper();
-            }
-        },
-        methods: {
-            handleShowPopper() {
-                if (this.timeout) clearTimeout(this.timeout);
-                this.timeout = setTimeout(() => {
-                    this.visible = true;
-                }, this.delay);
-                this.tIndex = this.handleGetIndex();
-            },
-            handleClosePopper() {
-                if (this.timeout) {
-                    clearTimeout(this.timeout);
-                    if (!this.controlled) {
-                        this.timeout = setTimeout(() => {
-                            this.visible = false;
-                        }, 100);
-                    }
-                }
-            },
-            handleGetIndex () {
-                transferIncrease();
-                return transferIndex;
-            },
-        },
-        mounted () {
-            if (this.always) {
-                this.updatePopper();
-            }
+      ]
+    }
+  },
+  watch: {
+    content () {
+      this.updatePopper()
+    }
+  },
+  methods: {
+    handleShowPopper () {
+      if (this.timeout) clearTimeout(this.timeout)
+      this.timeout = setTimeout(() => {
+        this.visible = true
+      }, this.delay)
+      this.tIndex = this.handleGetIndex()
+    },
+    handleClosePopper () {
+      if (this.timeout) {
+        clearTimeout(this.timeout)
+        if (!this.controlled) {
+          this.timeout = setTimeout(() => {
+            this.visible = false
+          }, 100)
         }
-    };
+      }
+    },
+    handleGetIndex () {
+      transferIncrease()
+      return transferIndex
+    }
+  },
+  mounted () {
+    if (this.always) {
+      this.updatePopper()
+    }
+  }
+}
 </script>

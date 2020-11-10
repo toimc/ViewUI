@@ -19,26 +19,26 @@
     </div>
 </template>
 <script>
-    import iButton from '../button/button.vue';
-    import Icon from '../icon/icon.vue';
+import iButton from '../button/button.vue'
+import Icon from '../icon/icon.vue'
 
-    export default {
-        name: 'Operation',
-        components: { iButton, Icon },
-        props: {
-            prefixCls: String,
-            operations: Array,
-            leftActive: Boolean,
-            rightActive: Boolean,
-            reverseOperation: Boolean
-        },
-        methods: {
-            moveToLeft () {
-                this.$parent.moveTo('left');
-            },
-            moveToRight () {
-                this.$parent.moveTo('right');
-            }
-        }
-    };
+export default {
+  name: 'Operation',
+  components: { iButton, Icon },
+  props: {
+    prefixCls: String,
+    operations: Array,
+    leftActive: Boolean,
+    rightActive: Boolean,
+    reverseOperation: Boolean
+  },
+  methods: {
+    moveToLeft () {
+      this.$parent.moveTo('left')
+    },
+    moveToRight () {
+      this.$parent.moveTo('right')
+    }
+  }
+}
 </script>

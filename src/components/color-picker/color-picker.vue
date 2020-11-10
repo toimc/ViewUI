@@ -115,410 +115,410 @@
 </template>
 
 <script>
-import tinycolor from 'tinycolor2';
-import {directive as clickOutside} from '../../directives/v-click-outside-x';
-import TransferDom from '../../directives/transfer-dom';
-import Drop from '../../components/select/dropdown.vue';
-import RecommendColors from './recommend-colors.vue';
-import Saturation from './saturation.vue';
-import Hue from './hue.vue';
-import Alpha from './alpha.vue';
-import iInput from '../input/input.vue';
-import iButton from '../button/button.vue';
-import Icon from '../icon/icon.vue';
-import Locale from '../../mixins/locale';
-import {oneOf} from '../../utils/assist';
-import Emitter from '../../mixins/emitter';
-import mixinsForm from '../../mixins/form';
-import Prefixes from './prefixMixin';
-import {changeColor, toRGBAString} from './utils';
+import tinycolor from 'tinycolor2'
+import { directive as clickOutside } from '../../directives/v-click-outside-x'
+import TransferDom from '../../directives/transfer-dom'
+import Drop from '../../components/select/dropdown.vue'
+import RecommendColors from './recommend-colors.vue'
+import Saturation from './saturation.vue'
+import Hue from './hue.vue'
+import Alpha from './alpha.vue'
+import iInput from '../input/input.vue'
+import iButton from '../button/button.vue'
+import Icon from '../icon/icon.vue'
+import Locale from '../../mixins/locale'
+import { oneOf } from '../../utils/assist'
+import Emitter from '../../mixins/emitter'
+import mixinsForm from '../../mixins/form'
+import Prefixes from './prefixMixin'
+import { changeColor, toRGBAString } from './utils'
 
 export default {
-    name: 'ColorPicker',
+  name: 'ColorPicker',
 
-    components: {Drop, RecommendColors, Saturation, Hue, Alpha, iInput, iButton, Icon},
+  components: { Drop, RecommendColors, Saturation, Hue, Alpha, iInput, iButton, Icon },
 
-    directives: {clickOutside, TransferDom},
+  directives: { clickOutside, TransferDom },
 
-    mixins: [Emitter, Locale, Prefixes, mixinsForm],
+  mixins: [Emitter, Locale, Prefixes, mixinsForm],
 
-    props: {
-        value: {
-            type: String,
-            default: undefined,
-        },
-        hue: {
-            type: Boolean,
-            default: true,
-        },
-        alpha: {
-            type: Boolean,
-            default: false,
-        },
-        recommend: {
-            type: Boolean,
-            default: false,
-        },
-        format: {
-            type: String,
-            validator(value) {
-                return oneOf(value, ['hsl', 'hsv', 'hex', 'rgb']);
-            },
-            default: undefined,
-        },
-        colors: {
-            type: Array,
-            default() {
-                return [];
-            },
-        },
-        disabled: {
-            type: Boolean,
-            default: false,
-        },
-        size: {
-            validator(value) {
-                return oneOf(value, ['small', 'large', 'default']);
-            },
-            default () {
-                return !this.$IVIEW || this.$IVIEW.size === '' ? 'default' : this.$IVIEW.size;
-            }
-        },
-        hideDropDown: {
-            type: Boolean,
-            default: false,
-        },
-        placement: {
-            type: String,
-            validator(value) {
-                return oneOf(value, [
-                    'top',
-                    'top-start',
-                    'top-end',
-                    'bottom',
-                    'bottom-start',
-                    'bottom-end',
-                    'left',
-                    'left-start',
-                    'left-end',
-                    'right',
-                    'right-start',
-                    'right-end',
-                ]);
-            },
-            default: 'bottom',
-        },
-        transfer: {
-            type: Boolean,
-            default () {
-                return !this.$IVIEW || this.$IVIEW.transfer === '' ? false : this.$IVIEW.transfer;
-            }
-        },
-        name: {
-            type: String,
-            default: undefined,
-        },
-        editable: {
-            type: Boolean,
-            default: true
-        },
-        // 4.0.0
-        capture: {
-            type: Boolean,
-            default () {
-                return !this.$IVIEW ? true : this.$IVIEW.capture;
-            }
-        },
-        transferClassName: {
-            type: String
-        }
+  props: {
+    value: {
+      type: String,
+      default: undefined
     },
-
-    data() {
-        return {
-            val: changeColor(this.value),
-            currentValue: this.value,
-            dragging: false,
-            visible: false,
-            recommendedColor: [
-                '#2d8cf0',
-                '#19be6b',
-                '#ff9900',
-                '#ed4014',
-                '#00b5ff',
-                '#19c919',
-                '#f9e31c',
-                '#ea1a1a',
-                '#9b1dea',
-                '#00c2b1',
-                '#ac7a33',
-                '#1d35ea',
-                '#8bc34a',
-                '#f16b62',
-                '#ea4ca3',
-                '#0d94aa',
-                '#febd79',
-                '#5d4037',
-                '#00bcd4',
-                '#f06292',
-                '#cddc39',
-                '#607d8b',
-                '#000000',
-                '#ffffff',
-            ],
-        };
+    hue: {
+      type: Boolean,
+      default: true
     },
+    alpha: {
+      type: Boolean,
+      default: false
+    },
+    recommend: {
+      type: Boolean,
+      default: false
+    },
+    format: {
+      type: String,
+      validator (value) {
+        return oneOf(value, ['hsl', 'hsv', 'hex', 'rgb'])
+      },
+      default: undefined
+    },
+    colors: {
+      type: Array,
+      default () {
+        return []
+      }
+    },
+    disabled: {
+      type: Boolean,
+      default: false
+    },
+    size: {
+      validator (value) {
+        return oneOf(value, ['small', 'large', 'default'])
+      },
+      default () {
+        return !this.$IVIEW || this.$IVIEW.size === '' ? 'default' : this.$IVIEW.size
+      }
+    },
+    hideDropDown: {
+      type: Boolean,
+      default: false
+    },
+    placement: {
+      type: String,
+      validator (value) {
+        return oneOf(value, [
+          'top',
+          'top-start',
+          'top-end',
+          'bottom',
+          'bottom-start',
+          'bottom-end',
+          'left',
+          'left-start',
+          'left-end',
+          'right',
+          'right-start',
+          'right-end'
+        ])
+      },
+      default: 'bottom'
+    },
+    transfer: {
+      type: Boolean,
+      default () {
+        return !this.$IVIEW || this.$IVIEW.transfer === '' ? false : this.$IVIEW.transfer
+      }
+    },
+    name: {
+      type: String,
+      default: undefined
+    },
+    editable: {
+      type: Boolean,
+      default: true
+    },
+    // 4.0.0
+    capture: {
+      type: Boolean,
+      default () {
+        return !this.$IVIEW ? true : this.$IVIEW.capture
+      }
+    },
+    transferClassName: {
+      type: String
+    }
+  },
 
-    computed: {
-        arrowClasses() {
-            return [
+  data () {
+    return {
+      val: changeColor(this.value),
+      currentValue: this.value,
+      dragging: false,
+      visible: false,
+      recommendedColor: [
+        '#2d8cf0',
+        '#19be6b',
+        '#ff9900',
+        '#ed4014',
+        '#00b5ff',
+        '#19c919',
+        '#f9e31c',
+        '#ea1a1a',
+        '#9b1dea',
+        '#00c2b1',
+        '#ac7a33',
+        '#1d35ea',
+        '#8bc34a',
+        '#f16b62',
+        '#ea4ca3',
+        '#0d94aa',
+        '#febd79',
+        '#5d4037',
+        '#00bcd4',
+        '#f06292',
+        '#cddc39',
+        '#607d8b',
+        '#000000',
+        '#ffffff'
+      ]
+    }
+  },
+
+  computed: {
+    arrowClasses () {
+      return [
                 `${this.inputPrefixCls}-icon`,
-                `${this.inputPrefixCls}-icon-normal`,
-            ];
-        },
-        transition() {
-            return oneOf(this.placement, ['bottom-start', 'bottom', 'bottom-end']) ? 'slide-up' : 'fade';
-        },
-        saturationColors: {
-            get() {
-                return this.val;
-            },
-            set(newVal) {
-                this.val = newVal;
-                this.$emit('on-active-change', this.formatColor);
-            },
-        },
-        classes() {
-            return [
+                `${this.inputPrefixCls}-icon-normal`
+      ]
+    },
+    transition () {
+      return oneOf(this.placement, ['bottom-start', 'bottom', 'bottom-end']) ? 'slide-up' : 'fade'
+    },
+    saturationColors: {
+      get () {
+        return this.val
+      },
+      set (newVal) {
+        this.val = newVal
+        this.$emit('on-active-change', this.formatColor)
+      }
+    },
+    classes () {
+      return [
                 `${this.prefixCls}`,
                 {
-                    [`${this.prefixCls}-transfer`]: this.transfer,
-                },
-            ];
-        },
-        wrapClasses() {
-            return [
+                  [`${this.prefixCls}-transfer`]: this.transfer
+                }
+      ]
+    },
+    wrapClasses () {
+      return [
                 `${this.prefixCls}-rel`,
                 `${this.prefixCls}-${this.size}`,
                 `${this.inputPrefixCls}-wrapper`,
                 `${this.inputPrefixCls}-wrapper-${this.size}`,
                 {
-                    [`${this.prefixCls}-disabled`]: this.itemDisabled,
-                },
-            ];
-        },
-        inputClasses() {
-            return [
+                  [`${this.prefixCls}-disabled`]: this.itemDisabled
+                }
+      ]
+    },
+    inputClasses () {
+      return [
                 `${this.prefixCls}-input`,
                 `${this.inputPrefixCls}`,
                 `${this.inputPrefixCls}-${this.size}`,
                 {
-                    [`${this.prefixCls}-focused`]: this.visible,
-                    [`${this.prefixCls}-disabled`]: this.itemDisabled,
-                },
-            ];
-        },
-        dropClasses() {
-            return [
+                  [`${this.prefixCls}-focused`]: this.visible,
+                  [`${this.prefixCls}-disabled`]: this.itemDisabled
+                }
+      ]
+    },
+    dropClasses () {
+      return [
                 `${this.transferPrefixCls}-no-max-height`,
                 {
-                    [`${this.prefixCls}-transfer`]: this.transfer,
-                    [`${this.prefixCls}-hide-drop`]: this.hideDropDown,
-                    [this.transferClassName]: this.transferClassName
-                },
-            ];
-        },
-        displayedColorStyle() {
-            return {backgroundColor: toRGBAString(this.visible ? this.saturationColors.rgba : tinycolor(this.value).toRgb())};
-        },
-        formatColor() {
-            const {format, saturationColors} = this;
-
-            if (format) {
-                if (format === 'hsl') {
-                    return tinycolor(saturationColors.hsl).toHslString();
+                  [`${this.prefixCls}-transfer`]: this.transfer,
+                  [`${this.prefixCls}-hide-drop`]: this.hideDropDown,
+                  [this.transferClassName]: this.transferClassName
                 }
+      ]
+    },
+    displayedColorStyle () {
+      return { backgroundColor: toRGBAString(this.visible ? this.saturationColors.rgba : tinycolor(this.value).toRgb()) }
+    },
+    formatColor () {
+      const { format, saturationColors } = this
 
-                if (format === 'hsv') {
-                    return tinycolor(saturationColors.hsv).toHsvString();
-                }
+      if (format) {
+        if (format === 'hsl') {
+          return tinycolor(saturationColors.hsl).toHslString()
+        }
 
-                if (format === 'hex') {
-                    return saturationColors.hex;
-                }
+        if (format === 'hsv') {
+          return tinycolor(saturationColors.hsv).toHsvString()
+        }
 
-                if (format === 'rgb') {
-                    return toRGBAString(saturationColors.rgba);
-                }
-            } else if (this.alpha) {
-                return toRGBAString(saturationColors.rgba);
-            }
+        if (format === 'hex') {
+          return saturationColors.hex
+        }
 
-            return saturationColors.hex;
-        },
-        confirmColorClasses () {
-            return [
+        if (format === 'rgb') {
+          return toRGBAString(saturationColors.rgba)
+        }
+      } else if (this.alpha) {
+        return toRGBAString(saturationColors.rgba)
+      }
+
+      return saturationColors.hex
+    },
+    confirmColorClasses () {
+      return [
                 `${this.prefixCls}-confirm-color`,
                 {
-                    [`${this.prefixCls}-confirm-color-editable`]: this.editable
+                  [`${this.prefixCls}-confirm-color-editable`]: this.editable
                 }
-            ];
-        },
-        // 3.4.0, global setting customArrow 有值时，arrow 赋值空
-        arrowType () {
-            let type = 'ios-arrow-down';
+      ]
+    },
+    // 3.4.0, global setting customArrow 有值时，arrow 赋值空
+    arrowType () {
+      let type = 'ios-arrow-down'
 
-            if (this.$IVIEW) {
-                if (this.$IVIEW.colorPicker.customArrow) {
-                    type = '';
-                } else if (this.$IVIEW.colorPicker.arrow) {
-                    type = this.$IVIEW.colorPicker.arrow;
-                }
-            }
-            return type;
-        },
-        // 3.4.0, global setting
-        customArrowType () {
-            let type = '';
-
-            if (this.$IVIEW) {
-                if (this.$IVIEW.colorPicker.customArrow) {
-                    type = this.$IVIEW.colorPicker.customArrow;
-                }
-            }
-            return type;
-        },
-        // 3.4.0, global setting
-        arrowSize () {
-            let size = '';
-
-            if (this.$IVIEW) {
-                if (this.$IVIEW.colorPicker.arrowSize) {
-                    size = this.$IVIEW.colorPicker.arrowSize;
-                }
-            }
-            return size;
+      if (this.$IVIEW) {
+        if (this.$IVIEW.colorPicker.customArrow) {
+          type = ''
+        } else if (this.$IVIEW.colorPicker.arrow) {
+          type = this.$IVIEW.colorPicker.arrow
         }
+      }
+      return type
     },
+    // 3.4.0, global setting
+    customArrowType () {
+      let type = ''
 
-    watch: {
-        value(newVal) {
-            this.val = changeColor(newVal);
-        },
-        visible(val) {
-            this.val = changeColor(this.value);
-            this.$refs.drop[val ? 'update' : 'destroy']();
-            this.$emit('on-open-change', Boolean(val));
-        },
+      if (this.$IVIEW) {
+        if (this.$IVIEW.colorPicker.customArrow) {
+          type = this.$IVIEW.colorPicker.customArrow
+        }
+      }
+      return type
     },
+    // 3.4.0, global setting
+    arrowSize () {
+      let size = ''
 
-    mounted() {
-        this.$on('on-escape-keydown', this.closer);
-        this.$on('on-dragging', this.setDragging);
+      if (this.$IVIEW) {
+        if (this.$IVIEW.colorPicker.arrowSize) {
+          size = this.$IVIEW.colorPicker.arrowSize
+        }
+      }
+      return size
+    }
+  },
+
+  watch: {
+    value (newVal) {
+      this.val = changeColor(newVal)
     },
+    visible (val) {
+      this.val = changeColor(this.value)
+      this.$refs.drop[val ? 'update' : 'destroy']()
+      this.$emit('on-open-change', Boolean(val))
+    }
+  },
 
-    methods: {
-        setDragging(value) {
-            this.dragging = value;
-        },
-        handleClose(event) {
-            if (this.visible) {
-                if (this.dragging || event.type === 'mousedown') {
-                    event.preventDefault();
-                    return;
-                }
+  mounted () {
+    this.$on('on-escape-keydown', this.closer)
+    this.$on('on-dragging', this.setDragging)
+  },
 
-                if (this.transfer) {
-                    const {$el} = this.$refs.drop;
-                    if ($el === event.target || $el.contains(event.target)) {
-                        return;
-                    }
-                }
-
-                this.closer(event);
-                return;
-            }
-
-            this.visible = false;
-        },
-        toggleVisible() {
-            if (this.itemDisabled) {
-                return;
-            }
-
-            this.visible = !this.visible;
-            this.$refs.input.focus();
-        },
-        childChange(data) {
-            this.colorChange(data);
-        },
-        colorChange(data, oldHue) {
-            this.oldHue = this.saturationColors.hsl.h;
-            this.saturationColors = changeColor(data, oldHue || this.oldHue);
-        },
-        closer(event) {
-            if (event) {
-                event.preventDefault();
-                event.stopPropagation();
-            }
-
-            this.visible = false;
-            this.$refs.input.focus();
-        },
-        handleButtons(event, value) {
-            this.currentValue = value;
-            this.$emit('input', value);
-            this.$emit('on-change', value);
-            this.dispatch('FormItem', 'on-form-change', value);
-            this.closer(event);
-        },
-        handleSuccess(event) {
-            this.handleButtons(event, this.formatColor);
-            this.$emit('on-pick-success');
-        },
-        handleClear(event) {
-            this.handleButtons(event, '');
-            this.$emit('on-pick-clear');
-        },
-        handleSelectColor(color) {
-            this.val = changeColor(color);
-            this.$emit('on-active-change', this.formatColor);
-        },
-        handleEditColor (event) {
-            const value = event.target.value;
-            this.handleSelectColor(value);
-        },
-        handleFirstTab(event) {
-            if (event.shiftKey) {
-                event.preventDefault();
-                event.stopPropagation();
-                this.$refs.ok.$el.focus();
-            }
-        },
-        handleLastTab(event) {
-            if (!event.shiftKey) {
-                event.preventDefault();
-                event.stopPropagation();
-                this.$refs.saturation.$el.focus();
-            }
-        },
-        onTab(event) {
-            if (this.visible) {
-                event.preventDefault();
-            }
-        },
-        onEscape(event) {
-            if (this.visible) {
-                this.closer(event);
-            }
-        },
-        onArrow(event) {
-            if (!this.visible) {
-                event.preventDefault();
-                event.stopPropagation();
-                this.visible = true;
-            }
-        },
+  methods: {
+    setDragging (value) {
+      this.dragging = value
     },
-};
+    handleClose (event) {
+      if (this.visible) {
+        if (this.dragging || event.type === 'mousedown') {
+          event.preventDefault()
+          return
+        }
+
+        if (this.transfer) {
+          const { $el } = this.$refs.drop
+          if ($el === event.target || $el.contains(event.target)) {
+            return
+          }
+        }
+
+        this.closer(event)
+        return
+      }
+
+      this.visible = false
+    },
+    toggleVisible () {
+      if (this.itemDisabled) {
+        return
+      }
+
+      this.visible = !this.visible
+      this.$refs.input.focus()
+    },
+    childChange (data) {
+      this.colorChange(data)
+    },
+    colorChange (data, oldHue) {
+      this.oldHue = this.saturationColors.hsl.h
+      this.saturationColors = changeColor(data, oldHue || this.oldHue)
+    },
+    closer (event) {
+      if (event) {
+        event.preventDefault()
+        event.stopPropagation()
+      }
+
+      this.visible = false
+      this.$refs.input.focus()
+    },
+    handleButtons (event, value) {
+      this.currentValue = value
+      this.$emit('input', value)
+      this.$emit('on-change', value)
+      this.dispatch('FormItem', 'on-form-change', value)
+      this.closer(event)
+    },
+    handleSuccess (event) {
+      this.handleButtons(event, this.formatColor)
+      this.$emit('on-pick-success')
+    },
+    handleClear (event) {
+      this.handleButtons(event, '')
+      this.$emit('on-pick-clear')
+    },
+    handleSelectColor (color) {
+      this.val = changeColor(color)
+      this.$emit('on-active-change', this.formatColor)
+    },
+    handleEditColor (event) {
+      const value = event.target.value
+      this.handleSelectColor(value)
+    },
+    handleFirstTab (event) {
+      if (event.shiftKey) {
+        event.preventDefault()
+        event.stopPropagation()
+        this.$refs.ok.$el.focus()
+      }
+    },
+    handleLastTab (event) {
+      if (!event.shiftKey) {
+        event.preventDefault()
+        event.stopPropagation()
+        this.$refs.saturation.$el.focus()
+      }
+    },
+    onTab (event) {
+      if (this.visible) {
+        event.preventDefault()
+      }
+    },
+    onEscape (event) {
+      if (this.visible) {
+        this.closer(event)
+      }
+    },
+    onArrow (event) {
+      if (!this.visible) {
+        event.preventDefault()
+        event.stopPropagation()
+        this.visible = true
+      }
+    }
+  }
+}
 </script>
