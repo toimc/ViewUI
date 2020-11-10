@@ -1,32 +1,33 @@
 {
-    "presets": [
-        ["env", {
-            "loose": false,
-            "modules": "commonjs",
-            "spec": true,
-            "targets": {
-                "browsers": [
-                    "last 3 Chrome versions",
-                    "last 3 Firefox versions",
-                    "Safari >= 10",
-                    "Explorer >= 11",
-                    "Edge >= 12",
-                    "iOS >= 10",
-                    "Android >= 6"
-                ]
-            },
-            "useBuiltIns": "usage",
-            "debug": false
-        }],
-        "stage-3"
-    ],
-    "plugins": [
-        "dynamic-import-node",
-        "transform-class-properties",
-        "transform-es5-property-mutators",
-        "transform-object-rest-spread",
-        "transform-runtime",
-        "transform-vue-jsx"
-    ],
-    "comments": false
+  "presets": [
+    [
+      "@babel/preset-env",
+      {
+        "targets": {
+          "browsers": [
+            "last 2 versions",
+            "Firefox ESR",
+            "> 1%",
+            "ie >= 11",
+            "iOS >= 8",
+            "Android >= 4"
+          ]
+        },
+        // 不需要手动引入@babel/polyfile -> 7.4.0 deprecated
+        "useBuiltIns": "usage",
+        "corejs": 3,
+        "debug": false
+      }
+    ]
+  ],
+  "plugins": [
+    "@babel/plugin-proposal-class-properties",
+    "@babel/plugin-transform-property-mutators",
+    "@babel/plugin-proposal-object-rest-spread",
+    "@vue/babel-plugin-jsx",
+    "@babel/plugin-syntax-dynamic-import",
+    "@babel/plugin-syntax-import-meta",
+    "@babel/plugin-proposal-json-strings"
+  ],
+  "comments": false
 }

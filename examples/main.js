@@ -1,4 +1,3 @@
-import 'babel-polyfill'
 import { createApp } from 'vue'
 import { createRouter, createWebHashHistory } from 'vue-router'
 import App from './app.vue'

@@ -250,4 +250,5 @@ API.lang = (code) => {
   else console.log(`The ${code} language pack is not loaded.`) // eslint-disable-line no-console
 }
 
-module.exports.default = module.exports = API // eslint-disable-line no-undef
+// module.exports.default = module.exports = API // eslint-disable-line no-undef
+export default API
