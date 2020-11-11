@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-empty-function */
 
 // export const inBrowser = typeof window !== 'undefined'
 
@@ -11,7 +12,7 @@
 export const isServer = false
 
 // 判断参数是否是其中之一
-export function oneOf (value, validList) {
+export const oneOf = <T>(value: T, validList: T[]):boolean => {
   for (let i = 0; i < validList.length; i++) {
     if (value === validList[i]) {
       return true
@@ -20,13 +21,13 @@ export function oneOf (value, validList) {
   return false
 }
 
-export function camelcaseToHyphen (str) {
+export const camelcaseToHyphen = (str:string):string => {
   return str.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase()
 }
 
 // For Modal scrollBar hidden
 let cached
-export function getScrollBarSize (fresh) {
+export const getScrollBarSize = (fresh):number => {
   if (isServer) return 0
   if (fresh || cached === undefined) {
     const inner = document.createElement('div')
@@ -37,8 +38,8 @@ export function getScrollBarSize (fresh) {
     const outerStyle = outer.style
 
     outerStyle.position = 'absolute'
-    outerStyle.top = 0
-    outerStyle.left = 0
+    outerStyle.top = 0 + ''
+    outerStyle.left = 0 + ''
     outerStyle.pointerEvents = 'none'
     outerStyle.visibility = 'hidden'
     outerStyle.width = '200px'
@@ -65,8 +66,10 @@ export function getScrollBarSize (fresh) {
 }
 
 // watch DOM change
+// Firefox(14+)、Chrome(26+)、Opera(15+)、IE(11+)和Safari(6.1+)支持这个API。Safari 6.0和Chrome 18-25使用这个API的时候，需要加上WebKit前缀（WebKitMutationObserver）
 export const MutationObserver = isServer ? false : window.MutationObserver || window.WebKitMutationObserver || window.MozMutationObserver || false
 
+// eslint-disable-next-line no-useless-escape
 const SPECIAL_CHARS_REGEXP = /([\:\-\_]+(.))/g
 const MOZ_HACK_REGEXP = /^moz([A-Z])/
 
@@ -76,14 +79,17 @@ function camelCase (name) {
   }).replace(MOZ_HACK_REGEXP, 'Moz$1')
 }
 // getStyle
-export function getStyle (element, styleName) {
+export const getStyle = (element, styleName):any => {
   if (!element || !styleName) return null
   styleName = camelCase(styleName)
   if (styleName === 'float') {
     styleName = 'cssFloat'
   }
   try {
-    const computed = document.defaultView.getComputedStyle(element, '')
+    let computed
+    if (document.defaultView) {
+      computed = document.defaultView.getComputedStyle(element, '')
+    }
     return element.style[styleName] || computed ? computed[styleName] : null
   } catch (e) {
     return element.style[styleName]
@@ -91,19 +97,18 @@ export function getStyle (element, styleName) {
 }
 
 // firstUpperCase
-function firstUpperCase (str) {
+export const firstUpperCase = (str:string):string => {
   return str.toString()[0].toUpperCase() + str.toString().slice(1)
 }
-export { firstUpperCase }
 
 // Warn
-export function warnProp (component, prop, correctType, wrongType) {
+export const warnProp = (component, prop, correctType, wrongType):void => {
   correctType = firstUpperCase(correctType)
   wrongType = firstUpperCase(wrongType)
     console.error(`[iView warn]: Invalid prop: type check failed for prop ${prop}. Expected ${correctType}, got ${wrongType}. (found in component: ${component})`);    // eslint-disable-line
 }
 
-function typeOf (obj) {
+const typeOf = (obj) => {
   const toString = Object.prototype.toString
   const map = {
     '[object Boolean]': 'boolean',
@@ -121,7 +126,7 @@ function typeOf (obj) {
 }
 
 // deepCopy
-function deepCopy (data) {
+export const deepCopy = (data) => {
   const t = typeOf(data)
   let o
 
@@ -145,10 +150,8 @@ function deepCopy (data) {
   return o
 }
 
-export { deepCopy }
-
 // scrollTop animation
-export function scrollTop (el, from = 0, to, duration = 500, endCallback) {
+export const scrollTop = (el, from = 0, to, duration = 500, endCallback) => {
   if (!window.requestAnimationFrame) {
     window.requestAnimationFrame = (
       window.webkitRequestAnimationFrame ||
@@ -184,7 +187,7 @@ export function scrollTop (el, from = 0, to, duration = 500, endCallback) {
 }
 
 // Find components upward
-function findComponentUpward (context, componentName, componentNames) {
+export const findComponentUpward = (context, componentName, componentNames) => {
   if (typeof componentName === 'string') {
     componentNames = [componentName]
   } else {
@@ -199,10 +202,9 @@ function findComponentUpward (context, componentName, componentNames) {
   }
   return parent
 }
-export { findComponentUpward }
 
 // Find component downward
-export function findComponentDownward (context, componentName) {
+export const findComponentDownward = (context, componentName) => {
   // $children doesn't appear to exist anymore...
   const childrens = context.$children
   let children = null
@@ -223,7 +225,7 @@ export function findComponentDownward (context, componentName) {
 }
 
 // Find components downward
-export function findComponentsDownward (context, componentName) {
+export const findComponentsDownward = (context, componentName) => {
   return context.$children.reduce((components, child) => {
     if (child.$options.name === componentName) components.push(child)
     const foundChilds = findComponentsDownward(child, componentName)
@@ -232,8 +234,8 @@ export function findComponentsDownward (context, componentName) {
 }
 
 // Find components upward
-export function findComponentsUpward (context, componentName) {
-  const parents = []
+export const findComponentsUpward = (context, componentName) => {
+  const parents = [] as any[]
   const parent = context.$parent
   if (parent) {
     if (parent.$options.name === componentName) parents.push(parent)
@@ -244,7 +246,7 @@ export function findComponentsUpward (context, componentName) {
 }
 
 // Find brothers components
-export function findBrothersComponents (context, componentName, exceptMe = true) {
+export const findBrothersComponents = (context, componentName, exceptMe = true) => {
   const res = context.$parent.$children.filter(item => {
     return item.$options.name === componentName
   })
@@ -254,12 +256,12 @@ export function findBrothersComponents (context, componentName, exceptMe = true)
 }
 
 /* istanbul ignore next */
-const trim = function (string) {
+const trim = (string) => {
   return (string || '').replace(/^[\s\uFEFF]+|[\s\uFEFF]+$/g, '')
 }
 
 /* istanbul ignore next */
-export function hasClass (el, cls) {
+export const hasClass = (el, cls) => {
   if (!el || !cls) return false
   if (cls.indexOf(' ') !== -1) throw new Error('className should not contain space.')
   if (el.classList) {
@@ -270,7 +272,7 @@ export function hasClass (el, cls) {
 }
 
 /* istanbul ignore next */
-export function addClass (el, cls) {
+export const addClass = (el, cls) => {
   if (!el) return
   let curClass = el.className
   const classes = (cls || '').split(' ')
@@ -293,7 +295,7 @@ export function addClass (el, cls) {
 }
 
 /* istanbul ignore next */
-export function removeClass (el, cls) {
+export const removeClass = (el, cls) => {
   if (!el || !cls) return
   const classes = cls.split(' ')
   let curClass = ' ' + el.className + ' '
@@ -324,7 +326,7 @@ export const dimensionMap = {
   xxl: '1600px'
 }
 
-export function setMatchMedia () {
+export const setMatchMedia = () => {
   if (typeof window !== 'undefined') {
     const matchMediaPolyfill = mediaQuery => {
       return {

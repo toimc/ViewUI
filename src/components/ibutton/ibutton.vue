@@ -1,8 +1,8 @@
 <template>
   <component
     :is="tagName"
-    :class="classes"
-    :disabled="itemDisabled"
+    :class="state.classes"
+    :disabled="state.itemDisabled"
     @click="handleClickLink"
     v-bind="tagProps"
   >
@@ -12,44 +12,40 @@
       :custom="customIcon"
       v-if="(icon || customIcon) && !loading"
     ></Icon>
-    <span v-if="showSlot" ref="slot"><slot></slot></span>
+    <span v-if="state.showSlot" ref="slot"><slot></slot></span>
   </component>
 </template>
 
-<script>
+<script lang="ts">
 import Icon from '../icon'
-import { oneOf } from '../../utils/assist'
-import mixinsLink from '../../mixins/link'
-import mixinsForm from '../../mixins/form'
-import { getCurrentInstance } from 'vue'
+import { oneOf } from '@/utils/assist'
+import { computed, defineComponent, inject, reactive, Component } from 'vue'
+import { RouteLocationRaw, useRouter } from 'vue-router'
 
 const prefixCls = 'ivu-btn'
 
-export default {
+export default defineComponent({
   name: 'iButton',
-  mixins: [mixinsLink, mixinsForm],
   components: { Icon },
   props: {
     type: {
-      validator (value) {
+      type: String,
+      validator: (value:string) => {
         return oneOf(value, ['default', 'primary', 'dashed', 'text', 'info', 'success', 'warning', 'error'])
       },
       default: 'default'
     },
     shape: {
-      validator (value) {
+      type: String,
+      validator: (value: string) => {
         return oneOf(value, ['circle', 'circle-outline'])
       }
     },
     size: {
-      validator (value) {
+      validator: (value: string) => {
         return oneOf(value, ['small', 'large', 'default'])
       },
-      default () {
-        const internalInstance = getCurrentInstance()
-        const config = internalInstance.appContext.config
-        return !config.$IVIEW || config.$IVIEW.size === '' ? 'default' : config.$IVIEW.size
-      }
+      default: 'default'
     },
     loading: Boolean,
     disabled: {
@@ -58,7 +54,7 @@ export default {
     },
     htmlType: {
       default: 'button',
-      validator (value) {
+      validator: (value: string) => {
         return oneOf(value, ['button', 'submit', 'reset'])
       }
     },
@@ -77,56 +73,141 @@ export default {
     ghost: {
       type: Boolean,
       default: false
+    },
+    to: {
+      type: [Object, String],
+      default: ''
+    },
+    replace: {
+      type: Boolean,
+      default: false
+    },
+    target: {
+      type: String,
+      validator: (value: string) => {
+        return oneOf(value, ['_blank', '_self', '_parent', '_top'])
+      },
+      default: '_self'
+    },
+    append: {
+      type: Boolean,
+      required: false,
+      default: false
     }
   },
-  computed: {
-    showSlot () {
-      // Was this
-      // return !!this.$slots.default;
-      // Should become???
-      // return !!this.$slots.default();
-      return true
-    },
-    classes () {
-      return [
-                    `${prefixCls}`,
-                    `${prefixCls}-${this.type}`,
-                    {
-                      [`${prefixCls}-long`]: this.long,
-                      [`${prefixCls}-${this.shape}`]: !!this.shape,
-                      [`${prefixCls}-${this.size}`]: this.size !== 'default',
-                      [`${prefixCls}-loading`]: this.loading != null && this.loading,
-                      [`${prefixCls}-icon-only`]: !this.showSlot && (!!this.icon || !!this.customIcon || this.loading),
-                      [`${prefixCls}-ghost`]: this.ghost
-                    }
-      ]
-    },
-    // Point out if it should render as <a> tag
-    isHrefPattern () {
-      return !!this.to
-    },
-    tagName () {
-      return this.isHrefPattern ? 'a' : 'button'
-    },
-    tagProps () {
-      const { isHrefPattern } = this
-      if (isHrefPattern) {
-        const { linkUrl, target } = this
-        return { href: linkUrl, target }
+  setup (props, { emit, slots }) {
+    const form = inject<Component & {disabled: boolean}>('FormInstance') || ''
+    const state = reactive({
+      showSlot: computed(() => !!slots),
+      classes: computed(() => {
+        return [
+          `${prefixCls}`,
+          `${prefixCls}-${props.type}`,
+          {
+            [`${prefixCls}-long`]: props.long,
+            [`${prefixCls}-${props.shape}`]: !!props.shape,
+            [`${prefixCls}-${props.size}`]: props.size !== 'default',
+            [`${prefixCls}-loading`]: props.loading != null && props.loading,
+            [`${prefixCls}-icon-only`]: !state.showSlot && (!!props.icon || !!props.customIcon || props.loading),
+            [`${prefixCls}-ghost`]: props.ghost
+          }
+        ]
+      }),
+      itemDisabled: computed(() => {
+        let state = props.disabled
+        if (!state && form) state = form.disabled
+        return state
+      }),
+      isHrefPattern: computed(() => !!props.to)
+    })
+
+    const tagName = computed(() => state.isHrefPattern ? 'a' : 'button')
+
+    const router = useRouter()
+
+    const linkUrl = computed(() => {
+      const type = typeof props.to
+      if (type !== 'string') {
+        return null
+      }
+      if (typeof props.to === 'string' && props.to.includes('//')) {
+        /* Absolute URL, we do not need to route this */
+        return props.to
+      }
+      if (router) {
+        // const current = useRoute()
+        let route
+        if (typeof props.to === 'string') {
+          route = router.resolve(props.to + props.append)
+        } else if (typeof props.to === 'object') {
+          route = router.resolve(props.to as RouteLocationRaw)
+        }
+        return route ? route.href : props.to
+      }
+      return props.to
+    })
+
+    const tagProps = computed(() => state.isHrefPattern ? { href: linkUrl, target: props.target } : { type: props.htmlType })
+    // const tagProps = computed(() => {
+    //   if (state.isHrefPattern) {
+    //     return { href: linkUrl, target: props.target }
+    //   } else {
+    //     return { type: props.htmlType }
+    //   }
+    // })
+
+    const handleClick = (newWindow = false) => {
+      if (newWindow) {
+        let to = props.to
+        if (router) {
+          let route
+          if (typeof props.to === 'string') {
+            route = router.resolve(props.to + props.append)
+          } else if (typeof props.to === 'object') {
+            route = router.resolve(props.to as RouteLocationRaw)
+          }
+          to = route ? route.href : props.to
+        }
+        window.open(to as string)
       } else {
-        const { htmlType } = this
-        return { type: htmlType }
+        if (router) {
+          if ((typeof props.to === 'string') && props.to.includes('//')) {
+            window.location.href = props.to
+          } else {
+            props.replace ? router.replace(props.to) : router.push(props.to)
+          }
+        } else {
+          window.location.href = props.to
+        }
       }
     }
-  },
-  methods: {
-    // Ctrl or CMD and click, open in new window when use `to`
-    handleClickLink (event) {
-      this.$emit('click', event)
+    const handleCheckClick = (event, newWindow = false) => {
+      if (props.to) {
+        if (props.target === '_blank') {
+          return false
+        } else {
+          event.preventDefault()
+          handleClick(newWindow)
+        }
+      }
+    }
+
+    const handleClickLink = (event) => {
+      emit('click', event)
       const openInNewWindow = event.ctrlKey || event.metaKey
 
-      this.handleCheckClick(event, openInNewWindow)
+      handleCheckClick(event, openInNewWindow)
+    }
+
+    return {
+      state,
+      tagName,
+      tagProps,
+      linkUrl,
+      handleClick,
+      handleCheckClick,
+      handleClickLink
     }
   }
-}
+})
 </script>

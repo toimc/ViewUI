@@ -1,29 +1,25 @@
 <template>
-    <div :class="classes">
-        <slot></slot>
-    </div>
+  <div :class="state.classes">
+    <slot></slot>
+  </div>
 </template>
-<script>
-import { oneOf } from '../../utils/assist'
-import { getCurrentInstance } from 'vue'
+<script lang="ts">
+import { oneOf } from '@/utils/assist'
+import { defineComponent, reactive, computed } from 'vue'
 
 const prefixCls = 'ivu-btn-group'
 
-export default {
+export default defineComponent({
   name: 'ButtonGroup',
   props: {
     size: {
-      validator (value) {
+      validator: (value: string) => {
         return oneOf(value, ['small', 'large', 'default'])
       },
-      default () {
-        const internalInstance = getCurrentInstance()
-        const config = internalInstance.appContext.config
-        return !config.$IVIEW || config.$IVIEW.size === '' ? 'default' : config.$IVIEW.size
-      }
+      default: 'default'
     },
     shape: {
-      validator (value) {
+      validator: (value: string) => {
         return oneOf(value, ['circle', 'circle-outline'])
       }
     },
@@ -32,17 +28,20 @@ export default {
       default: false
     }
   },
-  computed: {
-    classes () {
-      return [
-                    `${prefixCls}`,
-                    {
-                      [`${prefixCls}-${this.size}`]: !!this.size,
-                      [`${prefixCls}-${this.shape}`]: !!this.shape,
-                      [`${prefixCls}-vertical`]: this.vertical
-                    }
-      ]
+  setup (props) {
+    const state = reactive({
+      classes: computed(() => [
+        `${prefixCls}`,
+        {
+          [`${prefixCls}-${props.size}`]: !!props.size,
+          [`${prefixCls}-${props.shape}`]: !!props.shape,
+          [`${prefixCls}-vertical`]: props.vertical
+        }
+      ])
+    })
+    return {
+      state
     }
   }
-}
+})
 </script>
